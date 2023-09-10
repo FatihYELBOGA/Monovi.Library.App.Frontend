@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-
   Typography,
   TextField,
   Button,
@@ -18,8 +17,12 @@ const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '30%',
-  marginLeft: "25%"
+  marginTop: '12%', // Adjust this value as needed
+  padding: '20px',
+  marginLeft: "35%",
+  borderRadius: '10px',
+  backgroundColor: 'rgba(255, 255, 255, 1)', // Semi-transparent white background
+  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', // Box shadow
 };
 
 const avatarStyle = {
@@ -34,24 +37,24 @@ const formStyle = {
 
 const submitButtonStyle = {
   margin: '24px 0 16px',
-  backgroundColor:"#B00000"
+  backgroundColor: '#B00000',
 };
 
 const imageStyle = {
-    backgroundImage: `url(${background})`, // Use forward slashes instead of backslashes
-    backgroundSize: 'cover',
-    backgroundPosition: 'left',
-    height: '100vh', // Adjust the height as needed
-    width: "100%",
-    
-  };
-  
+  backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(' + background + ')',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  height: '100vh',
+  width: '100%',
+  backgroundColor: 'transparent', // Remove the semi-transparent background color
+}
+
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {setUserId} = props;
-  const {navigate} = useNavigate;
+  const { setUserId } = props;
+  const navigate = useNavigate(); // Remove unnecessary curly braces
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -62,50 +65,41 @@ const Login = (props) => {
   };
 
   const handleSubmit = (e) => {
-
-        e.preventDefault();
-        fetch("http://fatihyelbogaa-001-site1.htempurl.com/auth/login",
-        {
-          method: "POST",
-          headers: {
-          "Content-Type": "application/json",
-          },
-          body : JSON.stringify({
-            email : email,
-            password : password,
-          }),    
-        })
-        .then((res) => res.json())
-        .then((res) => {
-          if(res.id != null){
-            setUserId(res.userId);
-           
-              navigate("/home");
-                  
-          } else {
-            console.log(res);
-            alert(res.message);
-          }
-        })
-        .catch((err) => console.log(err))
-      };
-  
+    e.preventDefault();
+    fetch('http://fatihyelbogaa-001-site1.htempurl.com/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.id != null) {
+          setUserId(res.userId);
+          navigate('/home');
+        } else {
+          console.log(res);
+          alert(res.message);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <div style={{backgroundColor:"#FFABAB"}}>
-        <div  maxWidth="100%" sx={{marginLeft:0,padding:0}}>
+    <div style={imageStyle}>
       <CssBaseline />
       <Grid container>
-        <Grid item xs={5} style={imageStyle} sx={{}}></Grid>
-        <Grid item xs={6}>
+        
+        
           <div style={containerStyle}>
             <div>
-            <img style={{width:"50%",marginLeft:"25%"}} src={MonoviLogo}></img>
+              <img style={{ width: '50%', marginLeft: '25%' }} src={MonoviLogo} alt="Logo" />
             </div>
-              
-              
-          
-            
+
             <form onSubmit={handleSubmit} style={formStyle}>
               <TextField
                 variant="outlined"
@@ -133,29 +127,27 @@ const Login = (props) => {
                 value={password}
                 onChange={handlePasswordChange}
               />
-              
+
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 style={submitButtonStyle}
-                
               >
                 Sign In
               </Button>
-              <div style={{display:"flex",justifyContent:"space-between",width:"100%"}} >
-              <Link style={{textDecoration:"none"}}>Forget Password</Link>
-              <Link to="/sign-up" style={{textDecoration:"none"}}>Create New Account</Link>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                <Link style={{ textDecoration: 'none',color: "grey" }}>Forget Password</Link>
+                <Link to="/sign-up" style={{ textDecoration: 'none',color: "grey" }}>
+                  Create New Account
+                </Link>
               </div>
             </form>
           </div>
         </Grid>
-      </Grid>
-    </div>
 
     </div>
-    
   );
 };
 

@@ -11,21 +11,16 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import PersonIcon from '@mui/icons-material/Person';
-
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '20px',
   width: '100%',
-  marginTop: "5%",
+  marginTop: "8%",
 };
 
-const avatarStyle = {
-  margin: 'auto',
-  backgroundColor: '#1976D2',
-};
+
 
 const paperStyle = {
   padding: '20px',
@@ -37,15 +32,33 @@ const formStyle = {
   width: '100%',
   marginTop: '16px',
 };
+const styles = theme => ({
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "yellow !important"
+  }
+});
 
 const submitButtonStyle = {
   marginTop: '16px',
-  backgroundColor: '#1976D2',
+  backgroundColor: '#B00000',
   color: 'white',
   '&:hover': {
     backgroundColor: '#135CAE',
   },
+  '&:active': {
+    backgroundColor: '#B00000', // Dark red color when clicked
+  },
 };
+
+const textFieldStyle = {
+  
+  '& input:focus': {
+    borderColor: '#B00000 !important', // Dark red border when focused
+  },
+};
+
+
 
 const Register = (props) => {
   const [firstName, setFirstName] = useState('');
@@ -106,9 +119,7 @@ const Register = (props) => {
       <CssBaseline />
       <div style={containerStyle}>
         <Paper elevation={3} style={paperStyle}>
-          <Avatar style={avatarStyle}>
-            <PersonIcon />
-          </Avatar>
+          
           <Typography component="h1" variant="h5">
             Register
           </Typography>
@@ -118,6 +129,7 @@ const Register = (props) => {
                 <TextField
                   variant="outlined"
                   fullWidth
+                  required
                   id="firstName"
                   label="First Name"
                   name="firstName"
@@ -130,6 +142,8 @@ const Register = (props) => {
                 <TextField
                   variant="outlined"
                   fullWidth
+                  required
+                  autoFocus
                   id="lastName"
                   label="Last Name"
                   name="lastName"
@@ -141,6 +155,8 @@ const Register = (props) => {
                 <TextField
                   variant="outlined"
                   fullWidth
+                  required
+                  autoFocus
                   id="email"
                   label="Email Address"
                   name="email"
@@ -153,14 +169,40 @@ const Register = (props) => {
                 <TextField
                   variant="outlined"
                   fullWidth
+                  required
+                  autoFocus
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
                   value={password}
+                  inputProps={{ style: textFieldStyle }}
                   onChange={handlePasswordChange}
                 />
+                
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  sx={{}}
+                  fullWidth
+                  required
+                  name="password"
+                  label="Password (again)"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  autoFocus
+                  value={password}
+                  InputProps={{
+                    styles: {
+                      notchedOutline: styles.notchedOutline
+                    }
+                  }}
+                  onChange={handlePasswordChange}
+                />
+                
               </Grid>
             </Grid>
             <Button
