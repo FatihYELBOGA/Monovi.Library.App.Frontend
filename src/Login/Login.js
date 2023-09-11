@@ -21,7 +21,7 @@ const containerStyle = {
   padding: '20px',
   marginLeft: "35%",
   borderRadius: '10px',
-  backgroundColor: 'rgba(255, 255, 255, 1)', // Semi-transparent white background
+  backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
   boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', // Box shadow
 };
 
@@ -36,12 +36,15 @@ const formStyle = {
 };
 
 const submitButtonStyle = {
+  fontSize: "18px",
+  fontWeight: "bold",
+  height:'18%',
   margin: '24px 0 16px',
   backgroundColor: '#B00000',
 };
 
 const imageStyle = {
-  backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url(' + background + ')',
+  backgroundImage: ' url(' + background + ')',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   height: '100vh',
@@ -138,9 +141,9 @@ const Login = (props) => {
                 Sign In
               </Button>
               <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                <Link style={{ textDecoration: 'none',color: "grey" }}>Forget Password</Link>
-                <Link to="/sign-up" style={{ textDecoration: 'none',color: "grey" }}>
-                  Create New Account
+                <Link style={{color:'black'}}>Forget Password</Link>
+                <Link to="/sign-up" style={{ color: "black" }}>
+                  Sign Up
                 </Link>
               </div>
             </form>
