@@ -18,14 +18,15 @@ const containerStyle = {
   
   padding: '20px',
   borderRadius: '10px',
-  backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+  backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent white background
   boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
 };
 
 
 
 const paperStyle = {
-  
+  backgroundColor: 'rgba(255, 255, 255, 0)',
+  boxShadow: "0px",
   padding: '20px',
   maxWidth: '600px',
   margin: 'auto',
@@ -45,6 +46,7 @@ const styles = theme => ({
 const submitButtonStyle = {
   marginTop: '16px',
   fontSize: "18px",
+  height: "30%",
   backgroundColor: '#B00000',
   fontWeight: "bold",
   color: 'white',
@@ -122,8 +124,8 @@ const Register = (props) => {
   return (
     <div style={{width: "100%"}}>
       <CssBaseline />
-      <div style={containerStyle}>
-        <Paper elevation={3} style={paperStyle}>
+     
+        <div elevation={3}style={containerStyle}>
           
         
           <form onSubmit={handleSubmit} style={formStyle}>
@@ -217,9 +219,9 @@ const Register = (props) => {
               Register
             </Button>
           </form>
-        </Paper>
+        </div>
       </div>
-    </div>
+  
   );
 };
 

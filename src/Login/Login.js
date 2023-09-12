@@ -21,7 +21,7 @@ const containerStyle = {
   
   padding: '20px',
   borderRadius: '10px',
-  backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+  backgroundColor: 'rgba(255, 255, 255, 0.80)', // Semi-transparent white background
   boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
 };
 
