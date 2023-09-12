@@ -8,22 +8,23 @@ import {
   Grid,
 } from '@mui/material';
 import MonoviLogo from '../image/monovi-logo.png';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import background from '../image/pexels-ricky-esquivel-1907785.jpg';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { hover } from '@testing-library/user-event/dist/hover';
+import Register from './Register';
 
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '12%', // Adjust this value as needed
+  
   padding: '20px',
-  marginLeft: "35%",
   borderRadius: '10px',
   backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
-  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', // Box shadow
+  boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
 };
+
 
 const avatarStyle = {
   margin: '8px',
@@ -42,9 +43,10 @@ const submitButtonStyle = {
   margin: '24px 0 16px',
   backgroundColor: '#B00000',
 };
+//linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
 
 const imageStyle = {
-  backgroundImage: ' url(' + background + ')',
+  backgroundImage: '  url(' + background + ')',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   height: '100vh',
@@ -58,6 +60,36 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const { setUserId } = props;
   const navigate = useNavigate(); // Remove unnecessary curly braces
+  const [isSignUp,setIsSignUp] = useState(true);
+
+  const topButtontyle = {
+  
+    width: "45%",
+    height: "50px",
+    marginLeft:" 2px",
+    color:  "black",
+    marginTop: "5px",
+    
+    padding: '0px 0px',
+    backgroundColor: "",
+    borderRadius: '5px 5px 0px 0px',
+    backgroundColor: isSignUp ? "rgba(255, 255, 255, 0.8)":"white",
+    boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
+  
+  };
+  const topButtontyle2 = {
+    width: "45%",
+    height: "50px",
+    marginTop: "5px",
+    marginLeft:" 2px",
+    color: "black",
+    padding: '15px 60px',
+    backgroundColor: "",
+    borderRadius: '5px 5px 0px 0px',
+    backgroundColor: isSignUp ?  "white":"rgba(255, 255, 255, 0.8)",
+    boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
+  
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -96,9 +128,19 @@ const Login = (props) => {
     <div style={imageStyle}>
       <CssBaseline />
       <Grid container>
-        
-        
-          <div style={containerStyle}>
+          <div style={{width:'30%',marginTop:"10%",marginLeft:"35%",minWidth:"500px"}}>
+
+          <div style={{display:"flex",marginLeft:"10%"}}>
+          <Button 
+          onClick={(e) => {setIsSignUp(true)}} 
+         
+          type='submit'
+          style={topButtontyle} 
+           >Sign In</Button>
+          <Button onClick={(e) => {setIsSignUp(false)}} style={topButtontyle2} >Sign Up</Button>
+          </div>
+          {isSignUp ? (<div style={containerStyle}>
+            
             <div>
               <img style={{ width: '50%', marginLeft: '25%' }} src={MonoviLogo} alt="Logo" />
             </div>
@@ -147,6 +189,10 @@ const Login = (props) => {
                 </Link>
               </div>
             </form>
+          </div>) : (<div><Register></Register></div>)}
+          
+          
+          
           </div>
         </Grid>
 

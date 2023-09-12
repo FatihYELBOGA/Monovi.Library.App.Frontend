@@ -15,14 +15,17 @@ const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  
   padding: '20px',
-  width: '100%',
-  marginTop: "8%",
+  borderRadius: '10px',
+  backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+  boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
 };
 
 
 
 const paperStyle = {
+  
   padding: '20px',
   maxWidth: '600px',
   margin: 'auto',
@@ -41,7 +44,9 @@ const styles = theme => ({
 
 const submitButtonStyle = {
   marginTop: '16px',
+  fontSize: "18px",
   backgroundColor: '#B00000',
+  fontWeight: "bold",
   color: 'white',
   '&:hover': {
     backgroundColor: '#135CAE',
@@ -120,9 +125,7 @@ const Register = (props) => {
       <div style={containerStyle}>
         <Paper elevation={3} style={paperStyle}>
           
-          <Typography component="h1" variant="h5">
-            Register
-          </Typography>
+        
           <form onSubmit={handleSubmit} style={formStyle}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
