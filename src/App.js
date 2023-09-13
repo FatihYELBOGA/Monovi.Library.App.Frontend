@@ -1,16 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Login from './Login/Login'
 import Register from './Login/Register';
 import NavBar from './Navbar/Navbar';
-import { Home } from '@mui/icons-material';
+import Home from './Home/Home';
 
 function App() {
-  const [userId,setUserId] = useState(0);
+  const [userId,setUserId] = useState(localStorage.getItem("userId"));
 
-  if(userId === 0){
+  if(userId === null){
     return(
       <BrowserRouter>
      
@@ -24,9 +23,9 @@ function App() {
   }else{
     return (
       <BrowserRouter>
-      <NavBar></NavBar>
+      <NavBar setUserId={setUserId}></NavBar>
         <Routes>
-          <Route exact path='/home' element={<Home setUserId={setUserId} />}/>
+        <Route exact path='/home' element={<Home setUserId={setUserId} />}/>
           
         </Routes>
       

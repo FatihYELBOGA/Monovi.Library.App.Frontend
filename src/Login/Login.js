@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Typography,
   TextField,
   Button,
-  Avatar,
   CssBaseline,
   Grid,
 } from '@mui/material';
@@ -11,24 +9,16 @@ import MonoviLogo from '../image/monovi-logo.png';
 import background from '../image/pexels-ricky-esquivel-1907785.jpg';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { hover } from '@testing-library/user-event/dist/hover';
 import Register from './Register';
 
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  
-  padding: '20px',
+  padding: '35px',
   borderRadius: '10px',
-  backgroundColor: 'rgba(255, 255, 255, 0.80)', // Semi-transparent white background
+  backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
   boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
-};
-
-
-const avatarStyle = {
-  margin: '8px',
-  backgroundColor: 'secondary',
 };
 
 const formStyle = {
@@ -115,6 +105,9 @@ const Login = (props) => {
       .then((res) => {
         if (res.id != null) {
           setUserId(res.userId);
+          
+          localStorage.setItem("userId",res.userId)
+          
           navigate('/home');
         } else {
           console.log(res);

@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Typography,
   TextField,
   Button,
-  Container,
-  Avatar,
   CssBaseline,
   Grid,
-  Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,9 +12,9 @@ const containerStyle = {
   flexDirection: 'column',
   alignItems: 'center',
   
-  padding: '20px',
+  padding: '35px',
   borderRadius: '10px',
-  backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent white background
+  backgroundColor: 'rgba(255, 255, 255, 0.80)', // Semi-transparent white background
   boxShadow: '0px 0px 0px rgba(0, 0, 0, 0.2)', // Box shadow
 };
 
@@ -44,7 +40,7 @@ const styles = theme => ({
 });
 
 const submitButtonStyle = {
-  marginTop: '16px',
+  marginTop: '24px',
   fontSize: "18px",
   height: "30%",
   backgroundColor: '#B00000',
@@ -72,6 +68,7 @@ const Register = (props) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordAgain,setPasswordAgain] = useState('');
   const {setUserId} = props;
   const navigate = useNavigate();
 
@@ -90,6 +87,9 @@ const Register = (props) => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+  const handlePasswordAgainChange = (e) =>{
+    setPasswordAgain(e.target.value);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,6 +135,7 @@ const Register = (props) => {
                   variant="outlined"
                   fullWidth
                   required
+                  sx={{}}
                   id="firstName"
                   label="First Name"
                   name="firstName"
@@ -193,10 +194,10 @@ const Register = (props) => {
                   sx={{}}
                   fullWidth
                   required
-                  name="password"
+                  name="password-again"
                   label="Password (again)"
                   type="password"
-                  id="password"
+                  id="password-again"
                   autoComplete="new-password"
                   autoFocus
                   value={password}
@@ -205,7 +206,7 @@ const Register = (props) => {
                       notchedOutline: styles.notchedOutline
                     }
                   }}
-                  onChange={handlePasswordChange}
+                  onChange={handlePasswordAgainChange}
                 />
                 
               </Grid>
