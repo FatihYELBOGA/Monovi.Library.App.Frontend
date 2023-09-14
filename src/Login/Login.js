@@ -91,15 +91,12 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("Email",email);
+    formData.append("Password",password);
     fetch('http://fatihyelbogaa-001-site1.htempurl.com/auth/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
+      body: formData,
     })
       .then((res) => res.json())
       .then((res) => {

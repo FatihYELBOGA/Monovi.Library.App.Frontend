@@ -93,18 +93,16 @@ const Register = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(password === passwordAgain){
+    const formData = new FormData();
+    formData.append("Email",email);
+    formData.append("Password",password);
+    formData.append("FirstName",firstName);
+    formData.append("LastName",lastName);
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/auth/register",
         {
           method: "POST",
-          headers: {
-          "Content-Type": "application/json",
-          },
-          body : JSON.stringify({
-            email : email,
-            password : password,
-            firstName : firstName,
-            lastName : lastName,
-          }),    
+          body : formData
         })
         .then((res) => res.json())
         .then((res) => {
@@ -118,6 +116,9 @@ const Register = (props) => {
           }
         })
         .catch((err) => console.log(err))
+      }else{
+        alert("Passwords are not same")
+      }
     
   };
 
@@ -191,21 +192,16 @@ const Register = (props) => {
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
-                  sx={{}}
+                 
                   fullWidth
                   required
                   name="password-again"
                   label="Password (again)"
                   type="password"
                   id="password-again"
-                  autoComplete="new-password"
+                  autoComplete="again-password"
                   autoFocus
-                  value={password}
-                  InputProps={{
-                    styles: {
-                      notchedOutline: styles.notchedOutline
-                    }
-                  }}
+                  value={passwordAgain}
                   onChange={handlePasswordAgainChange}
                 />
                 

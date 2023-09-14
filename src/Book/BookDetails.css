@@ -1,0 +1,9 @@
+.book-section{
+    display: flex;
+    margin-top: 20px;
+}
+.book-section-head{
+    margin-right: 15px;
+    width: 120px;
+}
+

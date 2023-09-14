@@ -16,7 +16,7 @@ import MonoviLogo from '../image/monovi-logo.png';
 
 
 const pages = ['Home', 'Authors', 'About', 'Contact'];
-const settings = ['Profile', 'My Books', 'Friends'];
+const settings = ['Profile', 'My-Books', 'Friends'];
 
 function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -91,7 +91,9 @@ function ResponsiveAppBar(props) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={()=>{
+                  handleCloseNavMenu();
+                  navigate("/"+page.toLowerCase())}}>
                   <Typography sx={{fontSize:"18px !important"}} textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -112,7 +114,7 @@ function ResponsiveAppBar(props) {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=>navigate("/"+page.toLowerCase())}
                 sx={{mr:2,my: 2, color: 'white', display: 'block',fontSize:"16px",fontFamily:"Verdana" }}
               >
                 {page}
@@ -143,7 +145,9 @@ function ResponsiveAppBar(props) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={()=>{
+                  handleCloseUserMenu();
+                  navigate("/"+setting.toLowerCase())}}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

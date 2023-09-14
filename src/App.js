@@ -4,7 +4,10 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Login from './Login/Login'
 import Register from './Login/Register';
 import NavBar from './Navbar/Navbar';
+import BookDetails from './Book/BookDetails';
+import Profile from './Profile/Profile';
 import Home from './Home/Home';
+import Contact from './Contact/Contact';
 
 function App() {
   const [userId,setUserId] = useState(localStorage.getItem("userId"));
@@ -26,7 +29,9 @@ function App() {
       <NavBar setUserId={setUserId}></NavBar>
         <Routes>
         <Route exact path='/home' element={<Home setUserId={setUserId} />}/>
-          
+        <Route exact path ='/book-details/:id' element={<BookDetails/>}/>
+        <Route exact path='/profile' element={<Profile/>}/>
+        <Route exact path='/contact' element={<Contact/>}/>
         </Routes>
       
       </BrowserRouter>
