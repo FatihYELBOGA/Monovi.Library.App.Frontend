@@ -10,8 +10,9 @@ import Home from './Home/Home';
 import Contact from './Contact/Contact';
 
 function App() {
+  console.log(localStorage.getItem("userId"))
   const [userId,setUserId] = useState(localStorage.getItem("userId"));
-
+  console.log(userId);
   if(userId === null){
     return(
       <BrowserRouter>
@@ -30,7 +31,7 @@ function App() {
         <Routes>
         <Route exact path='/home' element={<Home setUserId={setUserId} />}/>
         <Route exact path ='/book-details/:id' element={<BookDetails/>}/>
-        <Route exact path='/profile' element={<Profile/>}/>
+        <Route exact path='/profile' element={<Profile userId={userId}/>}/>
         <Route exact path='/contact' element={<Contact/>}/>
         </Routes>
       

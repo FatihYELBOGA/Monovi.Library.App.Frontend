@@ -73,13 +73,13 @@ export default function BookDetails() {
   return (
     
     <div style={{display:"flex",justifyContent:"center"}}>
-        <Card sx={{ width:"40%",minWidth:"600px", mt:15}}>
+        <Card sx={{ width:"30%",minWidth:"600px", mt:15,mb:15}}>
         <Typography sx={{display:"flex",justifyContent:"center",mt:2,mb:2}} gutterBottom variant="h5" component="div">
           {book.name}
         </Typography>
       <CardMedia
         component="img"
-        height="194"
+        height="500"
         image={photoUrl}
         alt="Paella dish"
       />
@@ -105,9 +105,7 @@ export default function BookDetails() {
                 Content
             </Typography>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          -
         </Typography>
         </div>
         <div className='book-section'>

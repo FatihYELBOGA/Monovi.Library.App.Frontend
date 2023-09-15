@@ -26,6 +26,7 @@ const theme = createTheme({
         },
         root: {
           "&:hover": {
+
             backgroundColor: "transparent"
           },
           "&:focus": {
@@ -50,12 +51,14 @@ const Profile = (props) =>
 {
   // username, phone, firstName, lastName, birthDate, gender, and locationnformations
   const [username, setUsername] = useState("");
-  const [phone, setPhone] = useState("");
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [gender, setGender] = useState("");
-  const [genders, setGenders] = useState([]);
+  const [about,setAbout] = useState("");
+  const {userId} = props;
+
 
   // byte array of profile photo
   const [avatar, setAvatar] = useState(null);
@@ -65,16 +68,17 @@ const Profile = (props) =>
 
   // get the user informations by userId
   useEffect(() => 
-  {
-    fetch("http://yelbogafatih-001-site1.btempurl.com/users/"+props.userId).
+  { 
+    console.log(userId);
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/users/"+userId).
     then((res) =>
       res.json()).
     then((result) => {
-      setUsername(result.username);
+      
+      setUsername(result.email);
       setFirstName(result.firstName);
       setLastName(result.lastName);
       setGender(result.gender);
-      setPhone(result.phone);
       setBirthDate(result.bornDate.split('T')[0]);
      
       if(result.profile!=null){
@@ -88,18 +92,7 @@ const Profile = (props) =>
 
  
   
-  // get the genders
-  useEffect(() => {
-    fetch(" http://yelbogafatih-001-site1.btempurl.com/genders").
-    then((res) =>
-      res.json()).
-    then((result) => {
-      setGenders(result);
-    },
-    (error) => {
-      console.log(error);
-    })
-  }, []);
+ 
 
   
   // convert the byte[] to file object
@@ -155,9 +148,10 @@ const Profile = (props) =>
     formData.append("LastName", lastName);
     formData.append("Gender", gender);
     formData.append("BornDate", birthDate);
-    formData.append("Profile", avatar);
+    formData.append("Profil", avatar);
+    formData.append("About",about)
 
-    fetch("http://yelbogafatih-001-site1.btempurl.com/users/" + props.userId, {
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/users/" + userId, {
       method: "PUT",
       body: formData
     })
@@ -189,15 +183,7 @@ const Profile = (props) =>
           <Grid item xs={6}>
             <TextField label="E-mail"  value={username} onChange={(e) => setUsername(e.target.value)} fullWidth/>
           </Grid>
-          <Grid item xs={6}>
-            <TextField label="Phone"  value={phone} onChange={(e) => {
-              const input = e.target.value;
-              const regex = /^[0-9\b]+$/; // Yalnızca sayılar ve geri silme (backspace) tuşu kabul edilir
-              if (input === '' || regex.test(input)) {
-                setPhone(input);
-              }
-            }} fullWidth/>
-          </Grid>
+          
           <Grid item xs={6}>
             <TextField label="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} fullWidth/>
           </Grid>
@@ -218,9 +204,9 @@ const Profile = (props) =>
             <FormControl fullWidth>
               <InputLabel id="gender-label">Gender</InputLabel>
               <Select labelId="gender-label" id="gender-select" value={gender} onChange={(e) => setGender(e.target.value)}>
-              {genders.map((g) => (
-                    <MenuItem value={g} >{g}</MenuItem>
-                  ))}
+             
+                    <MenuItem value="MALE" >MALE</MenuItem>
+                    <MenuItem value="FEMALE" >FEMALE</MenuItem>
               </Select>
             </FormControl>
           </Grid>

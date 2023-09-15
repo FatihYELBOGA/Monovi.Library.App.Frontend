@@ -101,9 +101,10 @@ const Login = (props) => {
       .then((res) => res.json())
       .then((res) => {
         if (res.id != null) {
-          setUserId(res.userId);
+          console.log(res.id)
+          setUserId(res.id);
           
-          localStorage.setItem("userId",res.userId)
+          localStorage.setItem("userId",res.id)
           
           navigate('/home');
         } else {
