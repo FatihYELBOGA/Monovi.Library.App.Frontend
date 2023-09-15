@@ -30,6 +30,9 @@ const Contact = () => {
                 'You clicked the button!',
                 'success'
               )
+             setName("");
+             setEmail("");
+             setMessage("");
           } catch (error) {
             console.log(error);
           } finally {
@@ -57,6 +60,7 @@ const Contact = () => {
                 onChange={(e) => {setName(e.target.value)}}
                 fullWidth
                 required
+                value={name}
                 variant="outlined"
                 className="input"
               />
@@ -67,6 +71,7 @@ const Contact = () => {
                 onChange={(e) => {setEmail(e.target.value)}}
                 fullWidth
                 required
+                value={email}
                 variant="outlined"
                 className="input"
               />
@@ -79,6 +84,7 @@ const Contact = () => {
                 rows={4}
                 fullWidth
                 required
+                value={message}
                 variant="outlined"
                 className="input"
               />
