@@ -175,9 +175,7 @@ const Login = (props) => {
               </Button>
               <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                 <Link style={{color:'black'}}>Forget Password</Link>
-                <Link to="/sign-up" style={{ color: "black" }}>
-                  Sign Up
-                </Link>
+                
               </div>
             </form>
           </div>) : (<div><Register></Register></div>)}
