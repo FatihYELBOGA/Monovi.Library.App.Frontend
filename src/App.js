@@ -30,7 +30,7 @@ function App() {
       <NavBar userId={userId} setUserId={setUserId}></NavBar>
         <Routes>
         <Route exact path='/home' element={<Home setUserId={setUserId} />}/>
-        <Route exact path ='/book-details/:id' element={<BookDetails/>}/>
+        <Route exact path ='/book-details/:id' element={<BookDetails userId={userId}/>}/>
         <Route exact path='/profile' element={<Profile userId={userId}/>}/>
         <Route exact path='/contact' element={<Contact/>}/>
         </Routes>

@@ -10,11 +10,12 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MonoviLogo from '../image/monovi-logo.png';
 import { useParams } from 'react-router-dom';
 import "./BookDetails.css";
 import Photo from '../OtherComponents/Photo';
 import FileContent from '../OtherComponents/FileContent';
+import CommentProfile from '../Profile/CommentProfile';
+import EditCommentProfile from '../Profile/EditCommentProfile';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,7 +28,8 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function BookDetails() {
+export default function BookDetails(props) {
+  const {userId} = props;
   const [expanded, setExpanded] = useState(false);
   const [book,setBook] = useState(null);
   const [isLoaded,setIsLoaded] = useState(false);
@@ -164,6 +166,10 @@ export default function BookDetails() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          <EditCommentProfile userId={userId}></EditCommentProfile>
+          <CommentProfile></CommentProfile>
+          <CommentProfile></CommentProfile>
+
          
         </CardContent>
       </Collapse>

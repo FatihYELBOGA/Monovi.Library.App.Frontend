@@ -120,16 +120,16 @@ const Contact = () => {
           </ul>
           <div className="social-media">
         <a href="https://twitter.com/monoviteknoloji?lang=fi" className="social-link">
-          <FaTwitter /> Twitter
+          <FaTwitter /> 
         </a>
         <a href="https://www.instagram.com/monoviteknoloji/" className="social-link">
-          <FaInstagram /> Instagram
+          <FaInstagram /> 
         </a>
         <a href="https://tr.linkedin.com/company/monovi" className="social-link">
-          <FaLinkedin /> LinkedIn
+          <FaLinkedin /> 
         </a>
         <a href="mailto:osmanaltunay5@gmail.com" className="social-link">
-          <FaEnvelope /> Email Us
+          <FaEnvelope />
         </a>
       </div>
 

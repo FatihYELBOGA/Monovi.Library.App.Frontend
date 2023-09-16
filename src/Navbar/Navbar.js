@@ -65,7 +65,7 @@ function ResponsiveAppBar(props) {
   }
 
   return (
-    <AppBar position="static" sx={{height:{xs:"80px",md:"100px"}}}>
+    <AppBar position="static" sx={{height:{xs:"80px",md:"100px"}, backgroundColor:"#AFEDFF"}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters sx={{marginTop:"10px"}}>
         
@@ -134,7 +134,7 @@ function ResponsiveAppBar(props) {
               <Button
                 key={page}
                 onClick={()=>navigate("/"+page.toLowerCase())}
-                sx={{mr:2,my: 2, color: 'white', display: 'block',fontSize:"16px",fontFamily:"Verdana" }}
+                sx={{mr:2,my: 2, color: "white", display: 'block',fontSize:"16px",fontFamily:"Verdana",fontWeight:"bold" }}
               >
                 {page}
               </Button>

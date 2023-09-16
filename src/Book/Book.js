@@ -21,19 +21,21 @@ export default function Book(props) {
     },[])
     
   return (
-    <Card sx={{ borderRadius: 2,width:"12% !important", minWidth: 300,height:400 ,ml:1,mr:1, mt:15}}>
+    <Card sx={{ borderRadius: 2,width:"12% !important", minWidth: 300,height:500 ,ml:0.5, mt:15,backgroundColor:"#F1FBFE"}}>
       <CardMedia
-        sx={{ height: 200 }}
+        sx={{ height: 300,width:"60%" ,marginLeft:"20%",marginTop:3}}
         image={photoUrl}
         title={book.name}
       />
       <CardContent>
-        <Typography sx={{display:"flex",justifyContent:"center"}} gutterBottom variant="h5" component="div">
+        <div style={{height:80}}>
+        <Typography sx={{display:"flex",justifyContent:"center",fontWeight:"bold"}} gutterBottom variant="h7" component="div">
           {book.name}
         </Typography>
         <Typography sx={{display:"flex",justifyContent:"center"}} variant="body2" color="text.secondary">
           {book.writer.firstName}  {book.writer.lastName}
         </Typography>
+        </div>
 
       </CardContent>
       <CardActions sx={{display:"flex",justifyContent:"space-between"}}>
