@@ -27,7 +27,7 @@ function App() {
   }else{
     return (
       <BrowserRouter>
-      <NavBar setUserId={setUserId}></NavBar>
+      <NavBar userId={userId} setUserId={setUserId}></NavBar>
         <Routes>
         <Route exact path='/home' element={<Home setUserId={setUserId} />}/>
         <Route exact path ='/book-details/:id' element={<BookDetails/>}/>

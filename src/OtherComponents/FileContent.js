@@ -1,5 +1,5 @@
 
-const File = (base64String, fileName) => {
+const FileContent = (base64String, fileName) => {
         const contentType = 'application/pdf'; // Update the content type as per your file type
         const sliceSize = 1024;
         const byteCharacters = atob(base64String);
@@ -19,8 +19,7 @@ const File = (base64String, fileName) => {
     
         const blob = new Blob(byteArrays, { type: contentType });
         const file = new File([blob], fileName, { type: contentType });
-        setFileDisplay(file);
         return file;
       };
 
-export default File;
+export default FileContent;

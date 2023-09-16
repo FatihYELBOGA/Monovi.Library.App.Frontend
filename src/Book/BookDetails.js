@@ -14,6 +14,7 @@ import MonoviLogo from '../image/monovi-logo.png';
 import { useParams } from 'react-router-dom';
 import "./BookDetails.css";
 import Photo from '../OtherComponents/Photo';
+import FileContent from '../OtherComponents/FileContent';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,6 +33,7 @@ export default function BookDetails() {
   const [isLoaded,setIsLoaded] = useState(false);
   const {id} = useParams();
   const [photoUrl,setPhotoUrl] = useState(null);
+  const [content,setContent] = useState(null);
 
   useEffect(()=>{
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/books/"+id)
@@ -50,7 +52,10 @@ export default function BookDetails() {
             if(result.photo !== null){
                 setPhotoUrl(Photo(result.photo.content,result.photo.name))
                 
-            } 
+            }
+            if(result.content !== null){
+              setContent(FileContent(result.content.content,result.content.name))
+            }
             setBook(result);
            
         },
@@ -73,13 +78,15 @@ export default function BookDetails() {
   return (
     
     <div style={{display:"flex",justifyContent:"center"}}>
-        <Card sx={{ width:"30%",minWidth:"600px", mt:15,mb:15}}>
+        <Card sx={{ width:"40%",minWidth:"600px", mt:15,mb:15,backgroundColor:"#F1FBFE"}}>
         <Typography sx={{display:"flex",justifyContent:"center",mt:2,mb:2}} gutterBottom variant="h5" component="div">
           {book.name}
         </Typography>
       <CardMedia
         component="img"
-        height="500"
+       
+        
+        sx={{marginLeft:"25%", width:"50%"}}
         image={photoUrl}
         alt="Paella dish"
       />
@@ -105,7 +112,11 @@ export default function BookDetails() {
                 Content
             </Typography>
         <Typography variant="body2" color="text.secondary">
-          -
+        {content && (
+                  <a href={URL.createObjectURL(content)} target="_blank" rel="noopener noreferrer">
+                    {book.name +" Content"}
+                  </a>
+                )}
         </Typography>
         </div>
         <div className='book-section'>

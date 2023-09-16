@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useEffect,useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,16 +13,35 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import MonoviLogo from '../image/monovi-logo.png';
+import Photo from '../OtherComponents/Photo';
 
 
 const pages = ['Home', 'Authors', 'About', 'Contact'];
 const settings = ['Profile', 'My-Books', 'Friends'];
 
 function ResponsiveAppBar(props) {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
-  const {setUserId} = props;
+  const [photoUrl,setPhotoUrl] = useState(null);
+  const [name,setName] = useState("");
+  const {setUserId,userId} = props;
+  useEffect(() => 
+  { 
+    console.log(userId);
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/users/"+userId).
+    then((res) =>
+      res.json()).
+    then((result) => {
+      setName(result.firstName);
+      if(result.profil !=null ){
+        setPhotoUrl(Photo(result.profil.content, result.profil.name));
+      }
+    },
+    (error) => {
+      console.log(error);
+    });
+  }, [userId]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -125,7 +144,7 @@ function ResponsiveAppBar(props) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={photoUrl} />
               </IconButton>
             </Tooltip>
             <Menu

@@ -80,19 +80,16 @@ const Profile = (props) =>
       setLastName(result.lastName);
       setGender(result.gender);
       setBirthDate(result.bornDate.split('T')[0]);
-     
-      if(result.profile!=null){
-        convertBase64ToFile(result.profile.content, result.profile.name);
+      console.log(result.profil)
+      if(result.profil !=null ){
+        console.log("osman")
+        convertBase64ToFile(result.profil.content, result.profil.name);
       }
     },
     (error) => {
       console.log(error);
     });
-  }, []);
-
- 
-  
- 
+  }, [userId]);
 
   
   // convert the byte[] to file object
@@ -175,13 +172,13 @@ const Profile = (props) =>
               onChange={handleFile}
               style={{ display: "none" }}
             />
-          <Avatar sx={{ width: 80, height: 80}}src={avatarURL} />
+          <Avatar sx={{ width: 80, height: 80}} src={avatarURL} />
           <Typography variant="h6" component="p" sx={{ color: '#000', textAlign: 'center', textShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)', fontFamily: 'Poppins', fontWeight: 300, fontSize: '32px' }}>{firstName + " " + lastName}</Typography>
           <Button variant="contained"  size="small" sx={{ mt: 1,color:"white",backgroundColor:"blue" }} onClick={() => document.getElementById('avatar-upload').click()}>Edit Photo</Button>
        </Box>
         <Grid container spacing={2} sx={{ mt: 3 }}>
           <Grid item xs={6}>
-            <TextField label="E-mail"  value={username} onChange={(e) => setUsername(e.target.value)} fullWidth/>
+            <TextField  label="E-mail"  value={username} onChange={(e) => setUsername(e.target.value)} disabled fullWidth/>
           </Grid>
           
           <Grid item xs={6}>
@@ -199,7 +196,10 @@ const Profile = (props) =>
               }}
               fullWidth
             />
-          </Grid>  
+          </Grid> 
+          <Grid item xs={6}>
+            <TextField label="About" value={about} onChange={(e) => setAbout(e.target.value)} fullWidth/>
+          </Grid>
           <Grid item xs={6}>
             <FormControl fullWidth>
               <InputLabel id="gender-label">Gender</InputLabel>
@@ -208,8 +208,9 @@ const Profile = (props) =>
                     <MenuItem value="MALE" >MALE</MenuItem>
                     <MenuItem value="FEMALE" >FEMALE</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl>         
           </Grid>
+  
           
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 5 }}>
