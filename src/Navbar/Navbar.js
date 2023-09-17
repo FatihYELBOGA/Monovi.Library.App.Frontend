@@ -60,6 +60,7 @@ function ResponsiveAppBar(props) {
   const handleLogout = () =>{
     handleCloseUserMenu();
     localStorage.removeItem("userId");
+    localStorage.removeItem("jwtToken");
     setUserId(null);
     navigate('/');
   }

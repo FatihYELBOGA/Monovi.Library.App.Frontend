@@ -7,11 +7,9 @@ import { Grid, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Photo from '../OtherComponents/Photo';
 
-const EditCommentProfile = ({ userId,author }) => {
-  const handleSubmit = () => {
-    // Handle form submission here
-  };
+const EditCommentProfile = ({ userId,author,bookId,isNew,setIsNew }) => {
   const[avatarUrl,setAvatarURL] = useState(null);
+  const [comment,setComment] = useState("");
     
     useEffect(() => 
     { 
@@ -28,6 +26,32 @@ const EditCommentProfile = ({ userId,author }) => {
       });
     }, [userId]);
 
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(bookId,userId,comment)
+      const formData = new FormData();
+      formData.append("BookId",bookId);
+      formData.append("UserId",userId);
+      formData.append("Comment",comment);
+      fetch('http://fatihyelbogaa-001-site1.htempurl.com/comments', {
+        method: 'POST',
+        body: formData,
+        headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+          // You may need to add other headers based on the API requirements.
+        }
+      })
+        .then((res) => res.json())
+        .then((res) => {
+            setIsNew(!isNew);
+            console.log(res);
+            alert(res.message);
+            setComment("");
+          
+        })
+        .catch((err) => console.log(err));
+    };
+
   return (
     <Card variant="outlined" sx={{mb:1,backgroundColor:"#FBFEFF"}}>
       <CardContent>
@@ -38,7 +62,11 @@ const EditCommentProfile = ({ userId,author }) => {
           
         </div>
           <Grid item xs={9}>
-            <TextField label="Message" fullWidth />
+            <TextField 
+            label="Message" 
+            value={comment}
+            onChange={(e)=>setComment(e.target.value)}
+            fullWidth />
           </Grid>
           <Grid item xs={1}>
             <Button

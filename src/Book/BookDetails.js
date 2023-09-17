@@ -16,6 +16,8 @@ import Photo from '../OtherComponents/Photo';
 import FileContent from '../OtherComponents/FileContent';
 import CommentProfile from '../Profile/CommentProfile';
 import EditCommentProfile from '../Profile/EditCommentProfile';
+import {  Rating } from '@mui/material';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -36,6 +38,13 @@ export default function BookDetails(props) {
   const {id} = useParams();
   const [photoUrl,setPhotoUrl] = useState(null);
   const [content,setContent] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [comments,setComments] = useState([]);
+  const [isNew,setIsNew] = useState(false);
+  const [isFav,setIsFav] = useState(false);
+  const [isRating,setIsRating] = useState(false);
+
+
 
   useEffect(()=>{
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/books/"+id)
@@ -68,11 +77,235 @@ export default function BookDetails(props) {
 
   },[id])
 
+  useEffect(()=>{
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/comments/"+id)
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            setComments(result)
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+
+  },[id,isNew])
+
+  useEffect(()=>{
+    
+    if(book !== null){
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/ratings?bookId="+book.id+"&userId="+userId, {
+      method: 'GET',
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+        // You may need to add other headers based on the API requirements.
+      }
+    })
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            if(result !== null){
+              setIsRating(true);
+              setRating(result.point);
+              console.log(result.point)
+            }
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+      }
+
+  },[book])
+
+  useEffect(()=>{
+    
+    if(book !== null){
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/favorites?bookId="+book.id+"&userId="+userId, {
+      method: 'GET',
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+        // You may need to add other headers based on the API requirements.
+      }
+    })
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            if(result !== null){
+              setIsFav(result);
+            }
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+      }
+
+  },[book])
+
+  const handleRatingChange = (event, newValue) => {
+    setRating(newValue);
+    
+    if(isRating){
+      const formData = new FormData();
+      formData.append("BookId",book.id);
+      formData.append("UserId",userId);
+      formData.append("Point",newValue);
+      fetch("http://fatihyelbogaa-001-site1.htempurl.com/ratings", {
+      method: 'PUT',
+      body: formData,
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+        // You may need to add other headers based on the API requirements.
+      }
+    })
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            if(result !== null){
+              alert("Success");
+            }
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+    }else{
+      const formData = new FormData();
+      formData.append("BookId",book.id);
+      formData.append("UserId",userId);
+      formData.append("Point",rating);
+      fetch("http://fatihyelbogaa-001-site1.htempurl.com/ratings", {
+      method: 'POST',
+      body: formData,
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+        // You may need to add other headers based on the API requirements.
+      }
+    })
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            if(result !== null){
+              alert("success")
+            }
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+
+    }
+    
+
+
+  };
 
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleFavClick = () => {
+    
+    if(!isFav){
+      const formData = new FormData();
+      formData.append("BookId",book.id);
+      formData.append("UserId",userId);
+      
+      fetch("http://fatihyelbogaa-001-site1.htempurl.com/favorites", {
+      method: 'POST',
+      body: formData,
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+        // You may need to add other headers based on the API requirements.
+      }
+    })
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            if(result !== null){
+              setIsFav(!isFav);
+              alert("Success");
+            }
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+    }else{
+      fetch("http://fatihyelbogaa-001-site1.htempurl.com/favorites/", {
+      method: 'DELETE',
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+        // You may need to add other headers based on the API requirements.
+      }
+    })
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            if(result !== null){
+              setIsFav(!isFav);
+              alert("success")
+            }
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+
+    }
+  }
+
   if(!isLoaded){
     return(<div></div>)
   }else{
@@ -81,9 +314,21 @@ export default function BookDetails(props) {
     
     <div style={{display:"flex",justifyContent:"center"}}>
         <Card sx={{ width:"40%",minWidth:"600px", mt:15,mb:15,backgroundColor:"#F1FBFE"}}>
-        <Typography sx={{display:"flex",justifyContent:"center",mt:2,mb:2}} gutterBottom variant="h5" component="div">
+          <div style={{display:"flex"}}>
+          
+        <Rating
+        name="simple-controlled"
+        value={rating}
+        onChange={handleRatingChange}
+        size="large"
+        max={5}
+        sx={{mt:2.5,mr:1,ml:2,fontSize:24}}
+      />
+      <Typography sx={{display:"flex",justifyContent:"center",mt:2,mb:2}} gutterBottom variant="h5" component="div">
           {book.name}
         </Typography>
+          </div>
+        
       <CardMedia
         component="img"
        
@@ -149,8 +394,11 @@ export default function BookDetails(props) {
         
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton 
+        onClick={handleFavClick}
+        aria-label="add to favorites">
+          <FavoriteIcon 
+          sx={{color: isFav ? "red" : "grey"}} />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
@@ -166,9 +414,11 @@ export default function BookDetails(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <EditCommentProfile userId={userId}></EditCommentProfile>
-          <CommentProfile></CommentProfile>
-          <CommentProfile></CommentProfile>
+          <EditCommentProfile userId={userId} bookId={book.id} isNew={isNew} setIsNew={setIsNew}></EditCommentProfile>
+          {comments.map((comment)=>(
+              <CommentProfile key={comment.id} comment={comment} />
+          ))}
+          
 
          
         </CardContent>

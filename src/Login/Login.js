@@ -48,7 +48,7 @@ const imageStyle = {
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUserId } = props;
+  const { setUserId,setJwtToken } = props;
   const navigate = useNavigate(); // Remove unnecessary curly braces
   const [isSignUp,setIsSignUp] = useState(true);
 
@@ -103,8 +103,9 @@ const Login = (props) => {
         if (res.id != null) {
           console.log(res.id)
           setUserId(res.id);
-          
-          localStorage.setItem("userId",res.id)
+          setJwtToken(res.jwtToken);
+          localStorage.setItem("jwtToken",res.jwtToken);
+          localStorage.setItem("userId",res.id);
           
           navigate('/home');
         } else {

@@ -79,8 +79,11 @@ const Profile = (props) =>
       setFirstName(result.firstName);
       setLastName(result.lastName);
       setGender(result.gender);
-      setBirthDate(result.bornDate.split('T')[0]);
-      console.log(result.profil)
+      setAbout(result.about);
+  
+      if(result.bornDate !== null){
+        setBirthDate(result.bornDate.split('T')[0]);
+      }
       if(result.profil !=null ){
         console.log("osman")
         convertBase64ToFile(result.profil.content, result.profil.name);

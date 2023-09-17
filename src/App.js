@@ -12,13 +12,14 @@ import Contact from './Contact/Contact';
 function App() {
   console.log(localStorage.getItem("userId"))
   const [userId,setUserId] = useState(localStorage.getItem("userId"));
+  const [jwtToken,setJwtToken] = useState(localStorage.getItem("jwtToken"));
   console.log(userId);
   if(userId === null){
     return(
       <BrowserRouter>
      
         <Routes>
-          <Route exact path='/' element={<Login setUserId={setUserId} />}/>
+          <Route exact path='/' element={<Login setUserId={setUserId} setJwtToken={setJwtToken} />}/>
           <Route exact path='/sign-up' element={<Register setUserId={setUserId}/>}/>
         </Routes>
       
