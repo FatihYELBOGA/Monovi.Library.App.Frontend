@@ -31,6 +31,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function BookDetails(props) {
+  const [favId,setFavId] = useState(0);
   const {userId} = props;
   const [expanded, setExpanded] = useState(false);
   const [book,setBook] = useState(null);
@@ -153,7 +154,8 @@ export default function BookDetails(props) {
     .then(
         (result) => {
             if(result !== null){
-              setIsFav(result);
+              setFavId(result.id);
+              setIsFav(true);
             }
         },
         (error) => {
@@ -246,7 +248,7 @@ export default function BookDetails(props) {
     if(!isFav){
       const formData = new FormData();
       formData.append("BookId",book.id);
-      formData.append("UserId",userId);
+      formData.append("UsertId",userId);
       
       fetch("http://fatihyelbogaa-001-site1.htempurl.com/favorites", {
       method: 'POST',
@@ -267,7 +269,7 @@ export default function BookDetails(props) {
     .then(
         (result) => {
             if(result !== null){
-              setIsFav(!isFav);
+              setIsFav(true);
               alert("Success");
             }
         },
@@ -276,7 +278,7 @@ export default function BookDetails(props) {
         }
     )
     }else{
-      fetch("http://fatihyelbogaa-001-site1.htempurl.com/favorites/", {
+      fetch("http://fatihyelbogaa-001-site1.htempurl.com/favorites/"+favId, {
       method: 'DELETE',
       headers: {
       Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
@@ -294,7 +296,7 @@ export default function BookDetails(props) {
     .then(
         (result) => {
             if(result !== null){
-              setIsFav(!isFav);
+              setIsFav(false);
               alert("success")
             }
         },
