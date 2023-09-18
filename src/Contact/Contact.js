@@ -90,15 +90,14 @@ const Contact = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button
-                variant="contained"
-                color="primary"
+              <button   
+                
                 type="submit"
                 className="submit-button"
                 
               >
                 Send Message
-              </Button>
+              </button>
             </Grid>
           </Grid>
         </form>

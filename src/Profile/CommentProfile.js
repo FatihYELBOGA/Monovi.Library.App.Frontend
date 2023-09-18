@@ -53,7 +53,7 @@ const CommentProfile = (props) => {
   }, [comment]);
   
   return (
-    <Card variant="outlined" sx={{backgroundColor:"#FBFEFF"}}>
+    <Card variant="outlined" sx={{backgroundColor:"#fbfdfd",width:"100%",border:0}}>
       <CardContent>
         
 

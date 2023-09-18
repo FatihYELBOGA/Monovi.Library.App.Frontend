@@ -315,7 +315,7 @@ export default function BookDetails(props) {
   return (
     
     <div style={{display:"flex",justifyContent:"center"}}>
-        <Card sx={{ width:"40%",minWidth:"600px", mt:15,mb:15,backgroundColor:"#F1FBFE"}}>
+        <Card sx={{ width:"45%",minWidth:"600px", mt:15,mb:15,backgroundColor:"#fbfdfd"}}>
           <div style={{display:"flex"}}>
           
         <Rating
@@ -416,6 +416,7 @@ export default function BookDetails(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          <Typography variant='h6' sx={{justifyContent:"center",display:"flex"}}>YORUMLAR</Typography>
           <EditCommentProfile userId={userId} bookId={book.id} isNew={isNew} setIsNew={setIsNew}></EditCommentProfile>
           {comments.map((comment)=>(
               <CommentProfile key={comment.id} comment={comment} />

@@ -21,7 +21,7 @@ export default function Book(props) {
     },[])
     
   return (
-    <Card sx={{ borderRadius: 2,width:"12% !important", minWidth: 300,height:500 ,ml:0.5, mt:15,backgroundColor:"#F1FBFE"}}>
+    <Card sx={{ borderRadius: 2,width:"12% !important", minWidth: 300,height:500 ,ml:2, mt:15,backgroundColor:"#fbfdfd"}}>
       <CardMedia
         sx={{ height: 300,width:"60%" ,marginLeft:"20%",marginTop:3}}
         image={photoUrl}

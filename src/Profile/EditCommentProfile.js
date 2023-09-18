@@ -53,18 +53,20 @@ const EditCommentProfile = ({ userId,author,bookId,isNew,setIsNew }) => {
     };
 
   return (
-    <Card variant="outlined" sx={{mb:1,backgroundColor:"#FBFEFF"}}>
+    <Card variant="outlined" sx={{mb:1,backgroundColor:"#fbfdfd",marginBottom:1,mt:2,border:0}}>
       <CardContent>
         
         <Grid container spacing={2} alignItems="center">
-        <div style={{ display: 'flex', alignItems: 'center',marginLeft:15,marginTop:10 }}>
+        <div style={{ display: 'flex', alignItems: 'center',marginLeft:15,marginTop:13 }}>
           <Avatar src={avatarUrl} alt={author} />
           
         </div>
           <Grid item xs={9}>
-            <TextField 
-            label="Message" 
+            <input 
+            label="Message"
+            placeholder='Write comment...'
             value={comment}
+            style={{height:"32px",width:"100%",border:"0.1px solid",borderRadius:5}}
             onChange={(e)=>setComment(e.target.value)}
             fullWidth />
           </Grid>
@@ -73,6 +75,7 @@ const EditCommentProfile = ({ userId,author,bookId,isNew,setIsNew }) => {
               variant="contained"
               color="primary"
               fullWidth
+              sx={{height:38,width:"100px",border: 0,borderRadius:3,backgroundColor:"#E50000"}}
               onClick={handleSubmit}
             >
               Submit

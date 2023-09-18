@@ -1,104 +1,118 @@
-/* ContactPage.css */
+/* Contact.css */
 
 .container {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    
-  }
-  
-  .paper {
-    padding: 32px;
-    border-radius: 8px;
-    background-color: #F1FBFE !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .title {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .description {
-    color: #666;
-  }
-  
-  .input {
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  
-  .submit-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .contact-info {
-    margin-top: 20px;
-    text-align: left;
-  }
-  
-  .info-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .info-description {
-    color: #666;
-  }
-  
-  .info-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .info-link {
-    color: #007bff;
-    text-decoration: none;
-    transition: text-decoration 0.2s;
-  }
-  
-  .info-link:hover {
-    text-decoration: underline;
-  }
-  
-  .social-media {
-    margin-top: 20px;
-  }
-  
-  .social-link {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 20px;
-    font-size: 18px;
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  
-  .social-link i {
-    margin-right: 6px;
-  }
-  
-  .social-link:hover {
-    color: #0056b3;
-  }
-  
-  
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  width: ;
+  min-height: calc(100vh - 100px); /* Adjust the min-height to accommodate the navbar and footer height */
+}
+
+.paper {
+  padding: 32px;
+  border-radius: 8px;
+  background-color: transparent; /* Remove the background color */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Slightly increased box shadow */
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.title {
+  font-size: 36px; /* Larger title font size for emphasis */
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase; /* Uppercase title text */
+}
+
+.description {
+  color: #555; /* Slightly darker text color */
+  font-size: 20px; /* Larger font size for description */
+  margin-bottom: 30px !important;
+  margin-top: 30px !important; /* Increased margin bottom for spacing */
+}
+
+.input {
+  margin-bottom: 30px; /* Increased margin bottom for input fields */
+  padding: 14px; /* Increased padding for input fields */
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #ccc; /* Light border for inputs */
+  font-size: 18px; /* Larger font size for input fields */
+  color: #333; /* Text color */
+}
+
+.submit-button {
+  background-color: #c90000; /* Blue button color */
+  color: #fff;
+  border: none;
+  padding: 16px 28px; /* Increased padding for the button */
+  font-size: 20px; /* Larger font size for the button */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 30px; /* Increased margin bottom for the button */
+}
+
+.submit-button:hover {
+  background-color: #ff0000; /* Red color on hover */
+}
+
+.contact-info {
+  margin-top: 40px; /* Increased margin top for the contact info section */
+  text-align: left;
+}
+
+.info-title {
+  font-size: 28px; /* Larger font size for info title */
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.info-description {
+  color: #555; /* Slightly darker text color for info description */
+  font-size: 18px; /* Larger font size for info description */
+  margin-bottom: 20px; /* Increased margin bottom for info description */
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-link {
+  color: #007bff; /* Blue link color */
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+  font-size: 20px; /* Larger font size for links */
+}
+
+.info-link:hover {
+  text-decoration: underline;
+  margin-bottom: 20px; /* Increased margin bottom for links on hover */
+}
+
+.social-media {
+  margin-top: 40px; /* Increased margin top for the social media section */
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 28px; /* Larger font size for social icons */
+  color: #333; /* Icon color */
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.social-link i {
+  margin-right: 14px; /* Increased margin between icon and text */
+}
+
+.social-link:hover {
+  color: #222; /* Darker color on hover */
+}

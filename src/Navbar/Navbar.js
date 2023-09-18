@@ -66,7 +66,7 @@ function ResponsiveAppBar(props) {
   }
 
   return (
-    <AppBar position="static" sx={{height:{xs:"80px",md:"100px"}, backgroundColor:"#AFEDFF"}}>
+    <AppBar position="static" sx={{height:{xs:"80px",md:"100px",backgroundColor:"#333"}}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters sx={{marginTop:"10px"}}>
         
