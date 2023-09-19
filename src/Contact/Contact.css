@@ -4,13 +4,13 @@
   display: flex !important;
   justify-content: center;
   align-items: center;
-  width: ;
   min-height: calc(100vh - 100px); /* Adjust the min-height to accommodate the navbar and footer height */
+  
 }
 
 .paper {
   padding: 32px;
-  border-radius: 8px;
+  border-radius: 15px !important;
   background-color: transparent; /* Remove the background color */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Slightly increased box shadow */
   text-align: center;
@@ -51,8 +51,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
-  width: 100%;
-  max-width: 300px;
+  width: 100% ;
   margin-bottom: 30px; /* Increased margin bottom for the button */
 }
 

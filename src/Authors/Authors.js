@@ -8,7 +8,7 @@ function Authors (){
     const [isLoaded,setIsLoaded] = useState(false);
 
     useEffect(()=>{
-        fetch("http://fatihyelbogaa-001-site1.htempurl.com/books")
+        fetch("http://fatihyelbogaa-001-site1.htempurl.com/writers")
         .then((res) => {
             if (res.status === 204) {
               // Handle 204 No Content response
@@ -31,16 +31,15 @@ function Authors (){
     },[])
     return(
         <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"baseline"}}>
-            <Author></Author>
             
+            {authors.map((author) =>(
+                <Author author={author}></Author>
+                )
+
+            )}
             
         </div>
     )
 
 }
 export default Authors;
-/*{authors.map((author) =>(
-    <Author author={author}></Author>
-    )
-
-    )}*/

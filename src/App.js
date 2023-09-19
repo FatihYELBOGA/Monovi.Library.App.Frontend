@@ -13,6 +13,9 @@ import About from './About/About';
 import Footer from './Footer/Footer';
 import Authors from './Authors/Authors';
 import AuthorDetails from './Authors/AuthorDetails';
+import MyBooks from './MyBooks/MyBooks';
+import FavoritesBooks from './MyBooks/FavoritesBooks';
+import AddBook from './MyBooks/AddBook';
 
 function App() {
   console.log(localStorage.getItem("userId"))
@@ -46,7 +49,10 @@ function App() {
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/about' element={<About />} />
           <Route exact path='/authors' element={<Authors/>}/>
-          <Route exact path='/author-details/1' element={<AuthorDetails/>}/>
+          <Route exact path='/author-details/:authorId' element={<AuthorDetails/>}/>
+          <Route exact path='/my-books' element={<MyBooks userId={userId}/>} />
+          <Route exact path='/favorites-books' element={<FavoritesBooks userId={userId}/>}/>
+          <Route exact path='/add-book' element={<AddBook/>}/>
         </Routes>
 
         </div>

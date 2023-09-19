@@ -20,9 +20,12 @@ const aboutStyles = {
   aboutContent: {
     padding: '16px', // or any padding you prefer
     margin: '0 auto', // Center content horizontally
-    maxWidth: '800px', // Set a maximum width for content
+    backgroundColor: "#eeeeee", // Set a maximum width for content
     borderRadius: '8px',
-    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+    width: "50%",
+    border: 0,
+    boxShadow: 0,
+   
   },
   paragraph: {
     marginBottom: '16px', // Add more margin between paragraphs
@@ -44,7 +47,7 @@ const About = () => {
         </Typography>
       </div>
 
-      <Paper elevation={3} style={aboutStyles.aboutContent}>
+      <Paper elevation={0} style={aboutStyles.aboutContent}>
         {/* Content */}
         <p style={aboutStyles.paragraph}>
           Welcome to [Library Name], your one-stop destination for all things related to books and reading. We are thrilled to introduce you to our innovative library app, designed to enhance your reading experience and foster a sense of community among book enthusiasts.

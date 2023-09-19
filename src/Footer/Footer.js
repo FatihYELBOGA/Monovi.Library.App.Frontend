@@ -18,7 +18,7 @@ function Footer() {
       <Container maxWidth="xl">
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item xs={12} md={4}>
-            <Typography variant="h6">Your Website Name</Typography>
+            <Typography variant="h5">Monovi Online Library</Typography>
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography variant="body1">
