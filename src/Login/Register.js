@@ -115,7 +115,8 @@ const Register = (props) => {
             alert("Register not completed !");
           }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => 
+        console.log(err))
       }else{
         alert("Passwords are not same")
       }
