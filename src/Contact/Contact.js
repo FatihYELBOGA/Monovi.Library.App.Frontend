@@ -1,10 +1,13 @@
 // src/ContactPage.js
 import React, { useState,useEffect } from 'react';
-import { Container, Typography, Button, Grid, TextField, Box, Paper } from '@mui/material';
+import { Container, Typography, Button, Grid, TextField, Box, Paper, Avatar } from '@mui/material';
 import './Contact.css';
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
 import { FaTwitter, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa'; // Import the FontAwesome icons from react-icons
+import Fatih from "../image/355996369_991319245559147_170078936704767630_n.jpg"
+import Osman from "../image/371110078_836095094827149_4713213867691069774_n.jpg"
+
 const SERVICE_ID = "service_etavgj2";
 const TEMPLATE_ID = "template_ujpzmsc";
 const USER_ID = "ejyUgQxzycyXjkYDQ";
@@ -12,9 +15,9 @@ const USER_ID = "ejyUgQxzycyXjkYDQ";
 
 const Contact = () => {
     useEffect(() => emailjs.init(USER_ID), []);
-    const [name,setName] = useState(null);
-    const [email,setEmail] = useState(null);
-    const [message,setMessage] = useState(null);
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [message,setMessage] = useState("");
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -134,6 +137,36 @@ const Contact = () => {
 
         </div>
       </Paper>
+      <div style={{display:"flex", justifyContent:"space-between"}}>
+        <div>
+        <Avatar sx={{width:300,height:300,marginRight:20,marginLeft:20}} src={Fatih}></Avatar>
+        <Typography sx={{mt:2,justifyContent:"center",display:"flex",fontWeight:"bold"}}>
+        <a href="https://instagram.com/fatihyelbogaaa?igshid=MzRlODBiNWFlZA==" className="social-link">
+        Fatih Yelboğa
+        </a>
+          </Typography>
+          <Typography color="text.secondary" sx={{mt:0,justifyContent:"center",display:"flex"}}>
+          Full-Stack Developer
+          </Typography>
+        
+        
+        </div>
+        <div>
+        <Avatar sx={{width:300,height:300,marginRight:20,marginLeft:20}} src={Osman}></Avatar>
+        <Typography sx={{mt:2,justifyContent:"center",display:"flex",fontWeight:"bold"}}>
+        <a href="https://instagram.com/altunayosman1?igshid=OGQ5ZDc2ODk2ZA==" className="social-link">
+        Osman Altunay
+        </a>
+          
+          </Typography>
+        <Typography color="text.secondary" sx={{mt:0,justifyContent:"center",display:"flex"}}>
+          Full-Stack Developer
+          </Typography>
+        </div>
+        
+
+      </div>
+      
     </Container>
   );
 };

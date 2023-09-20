@@ -1,5 +1,5 @@
 import MiniNavbar from './MiniNavbar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box, TextField, Typography, Grid,
   Button, createTheme, ThemeProvider,
@@ -22,59 +22,108 @@ const theme = createTheme({
 });
 
 const AddBook = () => {
-  const [bookInfo, setBookInfo] = useState({
-    photo: '',
-    name: '',
-    pageNumber: '',
-    writer: '',
-    pdfFile: null,
-    description: '',
-    bookType: '',
-    language: '',
-  });
-  const [avatar, setAvatar] = useState(null);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setBookInfo({ ...bookInfo, [name]: value });
-  };
+  const [name,setName] = useState("");
+  const [description,setDescription] = useState("");
+  const [bookType,setBookType] = useState("");
+  const [pageNumber,setPageNumber] = useState(0);
+  const [language,setLanguage] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [avatarUrl,setAvatarUrl] = useState(null);
+  const [content,setContent] = useState("")
+  const [contentUrl,setContentUrl] = useState("");
+  const [writerId,setWriterId] = useState("");
+
+  //Enumaration lists
+  const [languages,setLanguages] = useState([]);
+  const [writers,setWriters] = useState([]);
+  const [bookTypes,setBookTypes] = useState([]);
+
+  useEffect(() =>{
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/enumerations/book-types")
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            setBookTypes(result);
+        },
+        (error) => {
+            console.log(error)   
+        }
+    )
+
+  },[])
+
+  useEffect(() =>{
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/enumerations/languages")
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            setLanguages(result);
+        },
+        (error) => {
+            console.log(error)   
+        }
+    )
+
+  },[])
+  
+  
 
   const handlePdfFileChange = (event) => {
     const pdfFile = event.target.files[0];
-    setBookInfo({ ...bookInfo, pdfFile });
   };
 
   const handleProfilePhoto = (e) => {
-    setAvatar(e.target.value);
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      // Check file size
+      const fileSizeLimit = 5 * 1024 * 1024; // 5MB in bytes
+      if (selectedFile.size <= fileSizeLimit) {
+        const fileURL = URL.createObjectURL(selectedFile);
+        setAvatar(selectedFile);
+        setAvatarUrl(fileURL);
+      } else {
+        // File size exceeds the limit
+        alert("File size exceeds the limit of 5MB.");
+      }
+    }
   };
 
   const handleAddBook = () => {
-    // You can implement your logic to add the book here
-    // For example, you can send the bookInfo object to an API or update your state.
-    console.log('Book Added:', bookInfo);
 
-    // Clear the input fields
-    setBookInfo({
-      photo: '',
-      name: '',
-      pageNumber: '',
-      writer: '',
-      pdfFile: null,
-      description: '',
-      bookType: '',
-      language: '',
-    });
+    
   };
+
 
   return (
     <div>
       <MiniNavbar></MiniNavbar>
       <ThemeProvider theme={theme}>
-        <Box sx={{ padding: 3, marginTop: 2, borderRadius: 2, width: '60%', marginLeft: '20%', marginRight: '20%' }}>
+        <Box sx={{ padding: 3, marginTop: 6, borderRadius: 2, width: '60%', marginLeft: '20%', marginRight: '20%' }}>
           <Typography variant="h6" component="p" sx={{ color: '#000', textAlign: 'center', textShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)', fontFamily: 'Poppins', fontWeight: 300, fontSize: '32px' }}>Add a New Book</Typography>
-          <Paper sx={{ p: 3 }}>
+          <Paper sx={{ p: 3,padding:6,backgroundColor:"transparent",border:0,boxShadow:0 }}>
             <Grid container spacing={2}>
-              <Box sx={{ width: "100%", display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center', marginBottom: 3 }}>
+              <Box sx={{ width: "100%", 
+                display: 'flex', 
+                alignItems: 'center', 
+                flexDirection: 'column', 
+                justifyContent: 'center', 
+                marginBottom: 3,
+                mt:5 }}>
                 <input
                   accept="image/*"
                   id="avatar-upload"
@@ -82,19 +131,34 @@ const AddBook = () => {
                   onChange={handleProfilePhoto}
                   style={{ display: "none" }}
                 />
-                <img style={{ width: 150, height: 150 }}></img>
-                <Typography variant="h6" component="p" sx={{ color: '#000', textAlign: 'center', textShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)', fontFamily: 'Poppins', fontWeight: 300, fontSize: '32px' }}>
+                <img style={{ width: 150, height: 150 }} src={avatarUrl}></img>
+                <Typography variant="h6" 
+                component="p" 
+                sx={{ color: '#000', 
+                textAlign: 'center', 
+                textShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)', 
+                fontFamily: 'Poppins', 
+                fontWeight: 300, 
+                fontSize: '32px' }}>
 
                 </Typography>
-                <Button variant="contained" size="small" sx={{ mt: 1, color: "white", backgroundColor: "#7D7D7D", fontWeight: "bold" }} onClick={() => document.getElementById('avatar-upload').click()}>Edit Photo</Button>
+                <Button 
+                variant="contained" 
+                size="small" 
+                sx={{ mt: 1,
+                 color: "white", 
+                 backgroundColor: "#7D7D7D", 
+                 fontWeight: "bold" }}
+                 onClick={() => document.getElementById('avatar-upload').click()}>Edit Photo</Button>
+              
               </Box>
               <Grid item xs={12}>
                 <TextField
                   name="name"
                   label="Book Name"
                   fullWidth
-                  value={bookInfo.name}
-                  onChange={handleInputChange}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -102,8 +166,8 @@ const AddBook = () => {
                   name="pageNumber"
                   label="Page Number"
                   fullWidth
-                  value={bookInfo.pageNumber}
-                  onChange={handleInputChange}
+                  value={pageNumber}
+                  onChange={(e) => setPageNumber(e.target.value)}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -111,8 +175,8 @@ const AddBook = () => {
                   name="writer"
                   label="Writer"
                   fullWidth
-                  value={bookInfo.writer}
-                  onChange={handleInputChange}
+                  value=""
+                  onChange={(e) => setWriterId(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -132,18 +196,25 @@ const AddBook = () => {
                   multiline
                   rows={4}
                   fullWidth
-                  value={bookInfo.description}
-                  onChange={handleInputChange}
+                  value={description}
+                  onChange={(e)=>setDescription(e.target.value)}
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextField
-                  name="bookType"
-                  label="Book Type"
-                  fullWidth
-                  value={bookInfo.bookType}
-                  onChange={handleInputChange}
-                />
+                <FormControl fullWidth>
+                  <InputLabel id="bookType-label">Book Type</InputLabel>
+                  <Select
+                    labelId="bookType-label"
+                    id="bookType-select"
+                    value={bookType}
+                    onChange={(e) => setBookType(e.target.value)}
+                  >
+                    {bookTypes.map((types) =>(
+                        <MenuItem key={types} value={types}>{types}</MenuItem>
+                    ))}
+                  
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid item xs={6}>
                 <FormControl fullWidth>
@@ -152,13 +223,13 @@ const AddBook = () => {
                     labelId="language-label"
                     id="language-select"
                     name="language"
-                    value={bookInfo.language}
-                    onChange={handleInputChange}
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
                   >
-                    <MenuItem value="English">English</MenuItem>
-                    <MenuItem value="Spanish">Spanish</MenuItem>
-                    <MenuItem value="French">French</MenuItem>
-                    {/* Add more language options here */}
+                    {languages.map((language) =>(
+                        <MenuItem value={language}>{language}</MenuItem>
+                    ))}
+                  
                   </Select>
                 </FormControl>
               </Grid>
@@ -167,7 +238,7 @@ const AddBook = () => {
                   variant="contained"
                   color="primary"
                   onClick={handleAddBook}
-                  sx={{ width: "100%" }}
+                  sx={{ width: "100%",backgroundColor:"#7D7D7D" }}
                 >
                   Add Book
                 </Button>
