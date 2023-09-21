@@ -21,7 +21,7 @@ const theme = createTheme({
   },
 });
 
-const AddBook = () => {
+const AddBook = (props) => {
 
   const [name,setName] = useState("");
   const [description,setDescription] = useState("");
@@ -32,7 +32,9 @@ const AddBook = () => {
   const [avatarUrl,setAvatarUrl] = useState(null);
   const [content,setContent] = useState("")
   const [contentUrl,setContentUrl] = useState("");
-  const [writerId,setWriterId] = useState("");
+  const [writerId,setWriterId] = useState(0);
+  const {userId} = props;
+
 
   //Enumaration lists
   const [languages,setLanguages] = useState([]);
@@ -80,6 +82,26 @@ const AddBook = () => {
     )
 
   },[])
+  useEffect(() =>{
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/writers/names")
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            setWriters(result);
+        },
+        (error) => {
+            console.log(error)   
+        }
+    )
+
+  },[])
   
   
 
@@ -104,8 +126,36 @@ const AddBook = () => {
   };
 
   const handleAddBook = () => {
+    const formData = new FormData();
+    formData.append("Name", name);
+    formData.append("Description", description);
+    formData.append("BookType", bookType);
+    formData.append("PageNumber", pageNumber);
+    formData.append("Language", language);
+    formData.append("Photo", avatar);
+    formData.append("Content", content);
+    formData.append("UserId",userId)
+    formData.append("WriterId", writerId);
 
-    
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/books", {
+      method: "POST",
+      body: formData
+    })
+    .then((res) => res.json()) 
+    .then((data) => {
+      alert("the user informations added successfully!");
+      console.log(data);
+      setName("");
+      setDescription("");
+      setBookType("");
+      setPageNumber(0);
+      setLanguage("");
+      setAvatar("");
+      setAvatarUrl("");
+      setContent("");
+      setWriterId(0);
+    })
+    .catch((err) => console.log(err));
   };
 
 
@@ -171,13 +221,20 @@ const AddBook = () => {
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextField
-                  name="writer"
-                  label="Writer"
-                  fullWidth
-                  value=""
-                  onChange={(e) => setWriterId(e.target.value)}
-                />
+              <FormControl fullWidth>
+                  <InputLabel id="bookType-label">Writer</InputLabel>
+                  <Select
+                    labelId="writer-label"
+                    id="writer-select"
+                    
+                    onChange={(e) => setWriterId(e.target.value)}
+                  >
+                    {writers.map((writer) =>(
+                        <MenuItem key={writer.id} value={writer.id}>{writer.firstName+" "+writer.lastName}</MenuItem>
+                    ))}
+                  
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <InputLabel htmlFor="pdf-file">Upload PDF File</InputLabel>

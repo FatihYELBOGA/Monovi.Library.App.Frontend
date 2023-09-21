@@ -36,7 +36,7 @@ function FavoritesBooks(props){
 
         <div>
             <MiniNavbar></MiniNavbar>
-            <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"baseline"}}>
+            <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"baseline",paddingTop:150}}>
             {books.map((book) =>(
                     <Book book={book.book}></Book>
             )
