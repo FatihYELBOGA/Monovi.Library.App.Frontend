@@ -75,7 +75,7 @@ const EditCommentProfile = ({ userId,author,bookId,isNew,setIsNew }) => {
               variant="contained"
               color="primary"
               fullWidth
-              sx={{height:38,width:"100px",border: 0,borderRadius:3,backgroundColor:"#E50000"}}
+              sx={{height:38,width:"80px",border: 0,borderRadius:3,backgroundColor:"#E50000"}}
               onClick={handleSubmit}
             >
               Submit

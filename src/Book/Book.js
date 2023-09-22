@@ -23,7 +23,7 @@ export default function Book(props) {
     
   return (
    
-      <Link to={`/book-details/${book.id}`} style={{ textDecoration: 'none' }}>
+      <Link to={`/book-details/${book.id}`} style={{ textDecoration: 'none',height:"auto" }}>
     <Card
   sx={{
     borderRadius: 2,
@@ -31,6 +31,7 @@ export default function Book(props) {
     minWidth: 250,
     height: 400,
     ml: 2,
+    marginBottom:3,
     backgroundImage: `url("${photoUrl}")`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',

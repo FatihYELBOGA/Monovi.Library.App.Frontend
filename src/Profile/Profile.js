@@ -144,13 +144,13 @@ const Profile = (props) =>
   const handleSaveChanges = () => 
   {
     const formData = new FormData();
+    formData.append("Profil", avatar);
     formData.append("FirstName", firstName);
     formData.append("LastName", lastName);
     formData.append("Gender", gender);
     formData.append("BornDate", birthDate);
-    formData.append("Profil", avatar);
     formData.append("About",about)
-
+    console.log(birthDate)
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/users/" + userId, {
       method: "PUT",
       body: formData

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Photo from '../OtherComponents/Photo';
 import Button  from '@mui/material/Button';
 import { CardActions } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function Author(props) {
   const { author } = props;
@@ -21,25 +22,53 @@ export default function Author(props) {
   }, []);
 
   return (
-    <Card sx={{ borderRadius: 2, width: "12% !important", minWidth: 250, height: 360, ml: 2, mt: 15, backgroundColor: "#fbfdfd" }}>
-      <CardMedia
-        sx={{ height: 200, width: "80%", marginLeft: "10%", marginTop: 3 }}
-        image={photoUrl}
-        title={`Osman Altunay`}
-      />
-      <CardContent>
-        <div style={{  }}>
-          <Typography sx={{ display: "flex", justifyContent: "center", fontWeight: "bold" }} gutterBottom variant="h7" component="div">
+    <div style={{}}>
+      <Link to={`/author-details/${author.id}`} style={{ textDecoration: 'none',height:"auto" }}>
+    <Card
+  sx={{
+    borderRadius: 2,
+    width: "12% !important",
+    minWidth: 240,
+    height: 350,
+    ml: 2,
+    marginBottom:3,
+    backgroundImage: `url("${photoUrl}")`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Adjust the opacity (0.7 in this case)
+    transition: 'transform 0.3s ease-in-out', // Add a smooth transition for scaling
+    '&:hover': {
+      transform: 'scale(1.1)', // Increase the size on hover
+    },
+  }}
+>
+  <CardContent sx={{ mt: 31 }}>
+    {/* Card content goes here */}
+  </CardContent>
+  <CardActions sx={{ display:"block",height:60, backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+  
+  <div style={{display:"flex",justifyContent:"center"}}>
+  <Typography color="white" sx={{ display: "flex", justifyContent: "center", fontWeight: "bold" }} gutterBottom variant="h7" component="div">
             {author.firstName+" "+author.lastName}
           </Typography>
-          <Typography sx={{ display: "flex", justifyContent: "center" }} variant="body2" color="text.secondary">
+  </div>
+  
+  <div style={{display:"flex",justifyContent:"center"}}>
+  <Typography color="white" sx={{ display: "flex", justifyContent: "center" }} gutterBottom variant="h7" component="div">
            {author.nationality}
           </Typography>
-        </div>
-      </CardContent>
-      <CardActions sx={{ display: "flex", justifyContent: "right" }}> 
-        <Button onClick={() => navigate(`/author-details/${author.id}`)} size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+  </div>
+  
+  
+  
+</CardActions>
+</Card>
+</Link>
+
+    </div>
+    
+
+    
   );
 }

@@ -34,9 +34,19 @@ function FavoritesBooks(props){
 
     return(
 
-        <div>
-            <MiniNavbar></MiniNavbar>
-            <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center",alignItems:"baseline",paddingTop:150}}>
+        <div style={{ display: 'flex', paddingBottom: 0 }}>
+        <MiniNavbar />
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignItems: 'baseline',
+            paddingTop: 150,
+            marginLeft: '0%',
+            flex: '2', // Make this part of the layout grow to occupy available space
+          }}
+        >
             {books.map((book) =>(
                     <Book book={book.book}></Book>
             )

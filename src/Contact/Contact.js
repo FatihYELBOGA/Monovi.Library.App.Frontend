@@ -139,27 +139,27 @@ const Contact = () => {
       </Paper>
       <div style={{display:"flex", justifyContent:"space-between"}}>
         <div>
-        <Avatar sx={{width:300,height:300,marginRight:20,marginLeft:20}} src={Fatih}></Avatar>
+        <Avatar sx={{width:200,height:200,marginRight:20,marginLeft:20}} src={Fatih}></Avatar>
         <Typography sx={{mt:2,justifyContent:"center",display:"flex",fontWeight:"bold"}}>
         <a href="https://instagram.com/fatihyelbogaaa?igshid=MzRlODBiNWFlZA==" className="social-link">
-        Fatih Yelboğa
+        Fatih YELBOĞA
         </a>
           </Typography>
-          <Typography color="text.secondary" sx={{mt:0,justifyContent:"center",display:"flex"}}>
+          <Typography color="text.secondary" sx={{mt:0,justifyContent:"center",display:"flex",marginBottom:10}}>
           Full-Stack Developer
           </Typography>
         
         
         </div>
         <div>
-        <Avatar sx={{width:300,height:300,marginRight:20,marginLeft:20}} src={Osman}></Avatar>
+        <Avatar sx={{width:200,height:200,marginRight:20,marginLeft:20}} src={Osman}></Avatar>
         <Typography sx={{mt:2,justifyContent:"center",display:"flex",fontWeight:"bold"}}>
         <a href="https://instagram.com/altunayosman1?igshid=OGQ5ZDc2ODk2ZA==" className="social-link">
-        Osman Altunay
+        Osman ALTUNAY
         </a>
           
           </Typography>
-        <Typography color="text.secondary" sx={{mt:0,justifyContent:"center",display:"flex"}}>
+        <Typography color="text.secondary" sx={{mt:0,justifyContent:"center",display:"flex",marginBottom:10}}>
           Full-Stack Developer
           </Typography>
         </div>

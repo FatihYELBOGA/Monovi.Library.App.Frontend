@@ -4,7 +4,7 @@ import { useState,useEffect } from "react";
 import UserSearch from "./UserSearch";
 import FriendsNavbar from "./FriendsNavbar";
 
-function Friends (props){
+function AddNewFriends (props){
     const {userId} = props;
     const [friends,setFriends] = useState([]);
     const [isLoaded,setIsLoaded] = useState(false);
@@ -46,11 +46,11 @@ function Friends (props){
       flex: '2', // Make this part of the layout grow to occupy available space
     }}
   >
-    
+    <UserSearch></UserSearch>
    
   </div>
 </div>
     )
 
 }
-export default Friends;
+export default AddNewFriends;

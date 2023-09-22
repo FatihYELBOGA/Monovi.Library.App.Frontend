@@ -1,6 +1,8 @@
 .book-section{
     display: flex;
     margin-top: 20px;
+    padding-inline: 30px;
+    font-weight: bold !important;
 }
 .book-section-head{
     margin-right: 15px;

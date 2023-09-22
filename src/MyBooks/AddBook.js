@@ -160,10 +160,23 @@ const AddBook = (props) => {
 
 
   return (
-    <div>
-      <MiniNavbar></MiniNavbar>
+    <div style={{ display: 'flex', paddingBottom: 0 }}>
+    <MiniNavbar />
+    <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignItems: 'baseline',
+            paddingTop: 50,
+            paddingBottom: 70,
+            marginLeft: '0%',
+            flex: '2', // Make this part of the layout grow to occupy available space
+          }}
+        >
+
       <ThemeProvider theme={theme}>
-        <Box sx={{ padding: 3, marginTop: 6, borderRadius: 2, width: '60%', marginLeft: '20%', marginRight: '20%' }}>
+        <Box sx={{ padding: 3, marginTop: 6, borderRadius: 2, width: '60%', marginLeft: '20%', marginRight: '20%',flex: '2' }}>
           <Typography variant="h6" component="p" sx={{ color: '#000', textAlign: 'center', textShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)', fontFamily: 'Poppins', fontWeight: 300, fontSize: '32px' }}>Add a New Book</Typography>
           <Paper sx={{ p: 3,padding:6,backgroundColor:"transparent",border:0,boxShadow:0 }}>
             <Grid container spacing={2}>
@@ -196,6 +209,7 @@ const AddBook = (props) => {
                 variant="contained" 
                 size="small" 
                 sx={{ mt: 1,
+                  width:150,
                  color: "white", 
                  backgroundColor: "#7D7D7D", 
                  fontWeight: "bold" }}
@@ -295,7 +309,7 @@ const AddBook = (props) => {
                   variant="contained"
                   color="primary"
                   onClick={handleAddBook}
-                  sx={{ width: "100%",backgroundColor:"#7D7D7D" }}
+                  sx={{ width: "100%",backgroundColor:"#7D7D7D",fontWeight: "bold" }}
                 >
                   Add Book
                 </Button>
@@ -304,6 +318,7 @@ const AddBook = (props) => {
           </Paper>
         </Box>
       </ThemeProvider>
+      </div>
     </div>
   );
 };

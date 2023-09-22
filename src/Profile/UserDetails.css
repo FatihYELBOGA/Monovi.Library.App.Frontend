@@ -1,0 +1,79 @@
+/* styles.css */
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adjust the spacing between buttons */
+    margin-top: 20px; /* Adjust the top margin */
+  }
+  .waiting-container {
+    margin-top: 20px;
+    font-size: 18px; /* Adjust the font size as needed */
+    font-weight: bold; /* Adjust the font weight as needed */
+    font-family: Arial, sans-serif; /* Specify the desired font family */
+    color: #5e5e5e !important; /* Adjust the text color as needed */
+    text-transform: uppercase; /* Convert text to uppercase */
+  }
+  
+  /* Accept Button */
+  .accept-button {
+    background-color: #4CAF50; /* Green color for "Accept" */
+    color: white;
+    padding: 6px 12px; /* Adjust button size */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  /* FriendButton.css */
+
+.friend-button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the spacing between elements */
+  }
+  
+  .friend-status {
+    font-weight: bold;
+    color: #1976D2; /* Blue color for "Friends" text */
+  }
+  
+  .withdraw-button {
+    background-color: #F44336; /* Red color for the "Withdraw" button */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .withdraw-button:hover {
+    background-color: #D32F2F; /* Darker red color on hover */
+  }
+  
+  
+  /* Hover effect for Accept Button */
+  .accept-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  /* Reject Button */
+  .reject-button {
+    background-color: #F44336; /* Red color for "Reject" */
+    color: white;
+    padding: 6px 12px; /* Adjust button size */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect for Reject Button */
+  .reject-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  

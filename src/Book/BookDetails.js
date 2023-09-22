@@ -316,8 +316,11 @@ export default function BookDetails(props) {
     
     <div style={{display:"flex",justifyContent:"center"}}>
         <Card sx={{ width:"45%",minWidth:"600px", mt:15,mb:15,backgroundColor:"#fbfdfd"}}>
-          <div style={{display:"flex"}}>
-          
+          <div style={{display:"flex",justifyContent:"space-between",paddingInline:"30px"}}>
+        
+      <Typography sx={{display:"flex",justifyContent:"center",mt:2,mb:2,fontWeight:"bold"}} gutterBottom variant="h5" component="div">
+          {book.name}
+        </Typography>
         <Rating
         name="simple-controlled"
         value={rating}
@@ -326,9 +329,7 @@ export default function BookDetails(props) {
         max={5}
         sx={{mt:2.5,mr:1,ml:2,fontSize:24}}
       />
-      <Typography sx={{display:"flex",justifyContent:"center",mt:2,mb:2}} gutterBottom variant="h5" component="div">
-          {book.name}
-        </Typography>
+
           </div>
         
       <CardMedia
@@ -341,23 +342,23 @@ export default function BookDetails(props) {
       />
       <CardContent>
         <div className='book-section'>
-            <Typography sx={{mr:10,width:"50px"}}>
+            <Typography sx={{mr:10,width:"50px",fontWeight:"bold"}}>
                 Descripton
             </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
         {book.description}
         </Typography>
         </div>
         <div className='book-section'>
-            <Typography sx={{mr:10,width:"50px"}}>
+            <Typography sx={{mr:10,width:"50px",fontWeight:"bold"}}>
                 Author
             </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
         {book.writer.firstName +" "+book.writer.lastName}
         </Typography>
         </div>
         <div className='book-section'>
-            <Typography sx={{mr:10,width:"50px"}}>
+            <Typography sx={{mr:10,width:"50px",fontWeight:"bold"}}>
                 Content
             </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -369,26 +370,26 @@ export default function BookDetails(props) {
         </Typography>
         </div>
         <div className='book-section'>
-            <Typography sx={{mr:4,width:"100px"}}>
+            <Typography sx={{mr:4,width:"100px",fontWeight:"bold"}}>
                 Created By
             </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
           {book.user.firstName +" "+book.user.lastName}
         </Typography>
         </div>
         <div className='book-section'>
-            <Typography sx={{mr:10,width:"50px"}}>
+            <Typography sx={{mr:10,width:"50px",fontWeight:"bold"}}>
                 Page
             </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
           {book.pageNumber}
         </Typography>
         </div>
         <div className='book-section'>
-            <Typography sx={{mr:10,width:"50px"}}>
+            <Typography sx={{mr:10,width:"50px",fontWeight:"bold"}}>
                 Language
             </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2">
           {book.language}
         </Typography>
         </div>
@@ -416,7 +417,8 @@ export default function BookDetails(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography variant='h6' sx={{justifyContent:"center",display:"flex"}}>YORUMLAR</Typography>
+          <Typography variant='h6' sx={{justifyContent:"center",display:"flex",fontWeight:"bold"}}>YORUMLAR</Typography>
+          <hr></hr>
           <EditCommentProfile userId={userId} bookId={book.id} isNew={isNew} setIsNew={setIsNew}></EditCommentProfile>
           {comments.map((comment)=>(
               <CommentProfile key={comment.id} comment={comment} />

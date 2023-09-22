@@ -19,6 +19,7 @@ import {
 import Photo from '../OtherComponents/Photo';
 import AuthorBook from '../Authors/AuthorBook';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import './UserDetails.css'
 
 const UserDetails = (props) => {
   const {userId} = props;
@@ -26,11 +27,46 @@ const UserDetails = (props) => {
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [userPhotoUrl, setUserPhotoUrl] = useState(null);
+  const [status,setStatus] = useState("");
   const [books, setBooks] = useState([]);
   const [avatarUrl,setAvatarURL] = useState("");
-  const [friendSituation,setFriendSituation] = useState("");
+  const [isWaitingForFriend,setIsWaitingForFriend] = useState(false);
 
   http://fatihyelbogaa-001-site1.htempurl.com/friends?user1=1&user2=2
+
+  useEffect(() => 
+  { 
+    console.log(userId);
+    fetch(" http://fatihyelbogaa-001-site1.htempurl.com/friends?user1="+friendId+"&user2="+userId).
+    then((res) =>
+      res.json()).
+    then((result) => {
+      
+      if(result ==="WAITING"){
+        setIsWaitingForFriend(true);
+      }
+    },
+    (error) => {
+      console.log(error);
+    });
+  }, [friendId,userId]);
+  
+  
+  
+  useEffect(() => 
+  { 
+    console.log(userId);
+    fetch(" http://fatihyelbogaa-001-site1.htempurl.com/friends?user1="+userId+"&user2="+friendId).
+    then((res) =>
+      res.json()).
+    then((result) => {
+      
+      setStatus(result);
+    },
+    (error) => {
+      console.log(error);
+    });
+  }, [friendId,userId]);
 
 
   useEffect(() => 
@@ -51,9 +87,7 @@ const UserDetails = (props) => {
       console.log(error);
     });
   }, [friendId]);
-
   
-
   useEffect(() => 
   { 
     console.log(userId);
@@ -70,6 +104,34 @@ const UserDetails = (props) => {
     });
   }, [userId]);
 
+
+  const handleAddFriend = ()=>{
+    
+
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/friends?user1="+userId+"&user2="+friendId, {
+      method: "POST",
+    })
+    .then((res) => res.json()) 
+    .then((data) => {
+      alert("Request was sent!");
+      setStatus("WAITING");
+    })
+    .catch((err) => console.log(err));
+  
+    
+
+  }
+
+  const handleRejectedFriend = ()=>{
+
+
+  }
+
+  const handleAcceptFriend = () =>{
+
+  }
+
+
   if (user !== null) {
     return (
       <Container maxWidth="md" style={{ marginTop: '20px' }}>
@@ -80,50 +142,75 @@ const UserDetails = (props) => {
                 <CardMedia
                   component="img"
                   height="auto"
-                  image={userPhotoUrl}
-                  alt={user.name}
+                  image={avatarUrl}
+                  alt={user.firstName}
                 />
-                <CardContent>
-                  <Typography variant="h6">{user.name}</Typography>
-                </CardContent>
+                
               </Card>
             </Grid>
             <Grid item xs={12} sm={8}>
               <div style={{display:"flex",justifyContent:"space-between"}}>
-              <Typography variant="h4" gutterBottom>
-                User Information
+              <Typography variant="h4" sx={{fontWeight:"bold"}} gutterBottom>
+                {user.firstName+" "+user.lastName.toUpperCase()}
               </Typography>
-              <Button>
-              <PersonAddIcon></PersonAddIcon>
-              </Button>
+              {(isWaitingForFriend) ? 
+              (
+                <div className="button-container">
+                  <Button className="accept-button"
+                  onClick={handleAcceptFriend}>Accept</Button>
+                  <Button className="reject-button"
+                  onClick={handleRejectedFriend}>Reject</Button>
+                </div>
+
+              ) : ( (status !== "NONE") ? (<Button 
+              onClick={handleAddFriend}>
+                <PersonAddIcon></PersonAddIcon>
+                </Button>) : ((status !== "WAITING") ? (
+                    <div className="waiting-container">
+                      WAITING
+                      </div>
+                ) : (
+                  <div className="friend-button-container">
+                    
+                    <Button className="withdraw-button"
+                    onClick={handleRejectedFriend}
+                    >
+                      Withdraw
+                    </Button>
+                  </div>
+                ))
+
+              )}
               
-
-
               </div>
-             
-              <Typography variant="body1">First Name: {user.firstName}</Typography>
-              <Typography variant="body1">Last Name: {user.lastName}</Typography>
-              <Typography variant="body1">Email: {user.email}</Typography>
-              <Typography variant="body1">Age: {user.age}</Typography>
+              <div style={{marginTop:50}}>
+              <Typography style={{fontSize:"18px"}} variant="body1"><b>E-mail:</b> {user.email}</Typography>
+              <Typography style={{fontSize:"18px"}} variant="body1"><b>First Name:</b> {user.firstName}</Typography>
+              <Typography style={{fontSize:"18px"}} variant="body1"><b>Last Name:</b> {user.lastName.toUpperCase()}</Typography>
+              
+              <Typography style={{fontSize:"18px"}} variant="body1"><b>Born Date:</b> {user.bornDate.split("T")[0]}</Typography>
+                </div>           
+              
             </Grid>
           </Grid>
         </Paper>
 
-        <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
-          <Typography variant="h4" gutterBottom>
-            Books by {user.name}
-          </Typography>
-          <div>
-            {books.map((book) => (
-              <React.Fragment key={book.id}>
-                <ListItem sx={{display:"flex", justifyContent:"center"}} disableGutters>
-                <AuthorBook book={book}/>
-                </ListItem>
-                <Divider />
-              </React.Fragment>
-            ))}
-          </div>
-        </Paper>
+        <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px', marginBottom: '20px' }}>
+        <Typography variant="h4" gutterBottom>
+          Created by
+        </Typography>
+        <hr></hr>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '-20px' }}>
+          {books.map((book) => (
+            <React.Fragment key={book.id}>
+              <ListItem sx={{ flexBasis: 'calc(33.33% - 10px)', display: 'flex', justifyContent: 'center', margin: '0 5px 20px' }} disableGutters>
+                <AuthorBook book={book} />
+              </ListItem>
+            </React.Fragment>
+          ))}
+        </div>
+      </Paper>
+
       </Container>
     );
   } else {

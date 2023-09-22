@@ -84,21 +84,21 @@ const AuthorDetails = () => {
           </Grid>
         </Paper>
   
-        <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px' }}>
-          <Typography variant="h4" gutterBottom>
-            Books by {author.firstName}
-          </Typography>
-          <div>
-            {books.map((book) => (
-              <React.Fragment key={book.id}>
-                <ListItem disableGutters>
-                  <AuthorBook book={book}/>
-                </ListItem>
-                <Divider />
-              </React.Fragment>
-            ))}
-          </div>
-        </Paper>
+        <Paper elevation={3} sx={{ padding: '20px', marginTop: '20px', marginBottom: '20px' }}>
+        <Typography variant="h4" gutterBottom>
+          Books by 
+        </Typography>
+        <hr></hr>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '-20px' }}>
+          {books.map((book) => (
+            <React.Fragment key={book.id}>
+              <ListItem sx={{ flexBasis: 'calc(33.33% - 10px)', display: 'flex', justifyContent: 'center', margin: '0 5px 20px' }} disableGutters>
+                <AuthorBook book={book} />
+              </ListItem>
+            </React.Fragment>
+          ))}
+        </div>
+      </Paper>
       </Container>
     );
 
