@@ -107,6 +107,7 @@ const AddBook = (props) => {
 
   const handlePdfFileChange = (event) => {
     const pdfFile = event.target.files[0];
+    setContent(pdfFile);
   };
 
   const handleProfilePhoto = (e) => {
@@ -177,7 +178,7 @@ const AddBook = (props) => {
 
       <ThemeProvider theme={theme}>
         <Box sx={{ padding: 3, marginTop: 6, borderRadius: 2, width: '60%', marginLeft: '20%', marginRight: '20%',flex: '2' }}>
-          <Typography variant="h6" component="p" sx={{ color: '#000', textAlign: 'center', textShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)', fontFamily: 'Poppins', fontWeight: 300, fontSize: '32px' }}>Add a New Book</Typography>
+
           <Paper sx={{ p: 3,padding:6,backgroundColor:"transparent",border:0,boxShadow:0 }}>
             <Grid container spacing={2}>
               <Box sx={{ width: "100%", 

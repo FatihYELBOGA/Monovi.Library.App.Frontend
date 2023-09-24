@@ -50,11 +50,11 @@ const About = () => {
       <Paper elevation={0} style={aboutStyles.aboutContent}>
         {/* Content */}
         <p style={aboutStyles.paragraph}>
-          Welcome to [Library Name], your one-stop destination for all things related to books and reading. We are thrilled to introduce you to our innovative library app, designed to enhance your reading experience and foster a sense of community among book enthusiasts.
+          Welcome to Monov Library, your one-stop destination for all things related to books and reading. We are thrilled to introduce you to our innovative library app, designed to enhance your reading experience and foster a sense of community among book enthusiasts.
         </p>
 
         <p style={aboutStyles.paragraph}>
-          <span style={aboutStyles.strong}>Our Mission:</span> At [Library Name], our mission is to connect readers, promote the love of reading, and make accessing and sharing books as easy and enjoyable as possible. We believe in the power of books to inspire, educate, and entertain, and we are dedicated to providing you with the tools to explore the world of literature effortlessly.
+          <span style={aboutStyles.strong}>Our Mission:</span> At Monovi Library, our mission is to connect readers, promote the love of reading, and make accessing and sharing books as easy and enjoyable as possible. We believe in the power of books to inspire, educate, and entertain, and we are dedicated to providing you with the tools to explore the world of literature effortlessly.
         </p>
 
         <p style={aboutStyles.paragraph}>
@@ -82,7 +82,7 @@ const About = () => {
           Whether you're a voracious reader or just starting your reading journey, [Library Name] is the perfect companion. Join our community of book enthusiasts today and unlock a world of literary adventures. Together, let's explore the vast universe of books and share the joy of reading.
         </p>
         <p style={aboutStyles.paragraph}>
-          Start your reading journey with [Library Name] now, and experience the magic of books like never before!
+          Start your reading journey with Monovi Library now, and experience the magic of books like never before!
         </p>
       </Paper>
     </div>

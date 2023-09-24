@@ -42,7 +42,7 @@ const FriendsNavbar = () => {
         Requests
       </Link>
       <Link to="/add-new-friend" style={linkStyle} activeClassName="active" activeStyle={activeLinkStyle}>
-        Add New Friends
+        Add Friend
       </Link>
       </div>
       
