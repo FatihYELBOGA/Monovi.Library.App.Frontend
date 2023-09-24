@@ -95,6 +95,7 @@ const Login = (props) => {
     formData.append("Email",email);
     formData.append("Password",password);
     fetch('http://fatihyelbogaa-001-site1.htempurl.com/auth/login', {
+      referrerPolicy: "unsafe_url",
       method: 'POST',
       body: formData,
     })
