@@ -1,56 +1,78 @@
-import React from "react";
-import Book from "../Book/Book";
-import { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import UserSearch from "./UserSearch";
 import FriendsNavbar from "./FriendsNavbar";
+import { Typography } from "@mui/material";
+import backgroundImage from "../image/desktop-wallpaper-best-friend-boy-and-girl-half-for-4-cave-wall-art-2-3-black-pinterest-boys-friends.jpg";
 
-function AddNewFriends (props){
-    const {userId} = props;
-    const [friends,setFriends] = useState([]);
-    const [isLoaded,setIsLoaded] = useState(false);
+function AddNewFriends(props) {
+  const { userId } = props;
+  const [friends, setFriends] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-    useEffect(()=>{
-        fetch("http://fatihyelbogaa-001-site1.htempurl.com/friends/"+userId)
-        .then((res) => {
-            if (res.status === 204) {
-              // Handle 204 No Content response
-              return Promise.resolve(null);
-            } else {
-              return res.json();
-            }
-          })
-        .then(
-            (result) => {
-                setIsLoaded(true);
-                setFriends(result);
-            },
-            (error) => {
-                setIsLoaded(true);   
-            }
-        )
-
-    },[userId])
-
-
-    return(
-        <div style={{ display: 'flex', paddingBottom: 0 }}>
-  <FriendsNavbar />
-  <div
-    style={{
+  const aboutStyles = {
+    header: {
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${backgroundImage}')`,
+      backgroundSize: 'cover',
+      height: '400px',
+      width: "100%",
+      position: 'relative',
       display: 'flex',
-      flexWrap: 'wrap',
+      alignItems: 'center',
       justifyContent: 'center',
-      alignItems: 'baseline',
-      paddingTop: 150,
-      marginLeft: '0%',
-      flex: '2', // Make this part of the layout grow to occupy available space
-    }}
-  >
-    <UserSearch></UserSearch>
-   
-  </div>
-</div>
-    )
+      textAlign: 'center',
+      color: 'white',
+      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+    },
+  };
 
+  useEffect(() => {
+    fetch("http://fatihyelbogaa-001-site1.htempurl.com/friends/" + userId)
+      .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setFriends(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+        }
+      );
+  }, [userId]);
+
+  return (
+    <div style={{ display: 'flex', height: '100vh' }}>
+      {/* Friend Sidebar */}
+      <div style={{ width: '15%', background: '#f0f0f0' }}>
+        {/* Place your Friend Sidebar content here */}
+        <FriendsNavbar />
+      </div>
+
+      {/* Main Content */}
+      <div style={{ flex: '1' }}>
+        {/* Image Section */}
+        <div style={aboutStyles.header}>
+          <Typography variant="h3" component="div" gutterBottom>
+            Find New Friends
+          </Typography>
+        </div>
+
+        {/* Content Section */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:"50px",marginLeft:"30%" }}>
+          <div style={{  width: '100%', }}>
+            {/* UserSearch */}
+            <UserSearch />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 export default AddNewFriends;

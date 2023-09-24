@@ -3,6 +3,7 @@ import Book from "../Book/Book";
 import { useState,useEffect } from "react";
 import UserSearch from "./UserSearch";
 import FriendsNavbar from "./FriendsNavbar";
+import Friend from "./Friend";
 
 function Friends (props){
     const {userId} = props;
@@ -46,6 +47,7 @@ function Friends (props){
       flex: '2', // Make this part of the layout grow to occupy available space
     }}
   >
+    <Friend></Friend>
     
    
   </div>

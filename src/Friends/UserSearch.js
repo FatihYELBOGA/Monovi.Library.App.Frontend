@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TextField, List, ListItem, ListItemAvatar, Avatar, ListItemText, Link } from '@mui/material';
 import Photo from '../OtherComponents/Photo';
+import CircularProgress from '@mui/material/CircularProgress';
 // Dummy user data (replace with actual user data or fetch from an API)
 
 
@@ -9,6 +10,7 @@ const UserSearch = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [users,setUsers] = useState([]);
   const [avatarUrl,setAvatarUrl] = useState("");
+  const [isLoaded,setIsLoaded] = useState(false);
 
   useEffect(()=>{
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/users")
@@ -23,11 +25,13 @@ const UserSearch = () => {
     .then(
         (result) => {
             console.log(result)
+            
             setUsers(result)
             if(result.profil !=null ){
               setAvatarUrl(Photo(result.profil.content,result.profil.name))
              
             }
+            setIsLoaded(true);
         },
         (error) => {
            
@@ -61,7 +65,9 @@ const UserSearch = () => {
         onChange={handleChange}
       />
       {searchQuery && ( // Check if there's a search query
-        <List>
+         ((isLoaded) ? (
+          <div>
+          <List>        
           {searchResults.map((user) => (
             <Link
             component="a"
@@ -88,7 +94,11 @@ const UserSearch = () => {
             </ListItem>
             </Link>
           ))}
-        </List>
+        </List></div>) : (
+        <div>
+            <CircularProgress />
+        </div>))
+        
       )}
     </div>
   );
