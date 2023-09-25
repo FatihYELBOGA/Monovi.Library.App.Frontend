@@ -6,13 +6,16 @@ function Home() {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage,setTotalPage] = useState(0);
+  const itemsPerPage = 3; // Number of books to display per page
 
   useEffect(() => {
-    fetch('http://fatihyelbogaa-001-site1.htempurl.com/books')
+    console.log(currentPage)
+    fetch(`http://fatihyelbogaa-001-site1.htempurl.com/books/pagination?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
       .then((res) => {
         if (res.status === 204) {
-          // Handle 204 No Content response
-          return Promise.resolve(null);
+          return Promise.resolve([]);
         } else {
           return res.json();
         }
@@ -20,14 +23,15 @@ function Home() {
       .then(
         (result) => {
           setIsLoaded(true);
-          setBooks(result);
-          setFilteredBooks(result); // Initialize filteredBooks with all books
+          setBooks(result.content);
+          setFilteredBooks(result.content); // Initialize filteredBooks with all books
+          setTotalPage(result.totalPages);
         },
         (error) => {
           setIsLoaded(true);
         }
       );
-  }, []);
+  }, [currentPage]); // Include currentPage in the dependency array to fetch data when the page changes
 
   // Handle input change in the search bar
   const handleSearchChange = (event) => {
@@ -35,12 +39,26 @@ function Home() {
     setSearchTerm(searchTerm);
 
     // Filter books based on the search term
-    const filtered = books.filter((book) =>
-      book.name.toLowerCase().includes(searchTerm) ||
-      book.writer.firstName.toLowerCase().includes(searchTerm)
+    const filtered = books.filter(
+      (book) =>
+        book.name.toLowerCase().includes(searchTerm) ||
+        book.writer.firstName.toLowerCase().includes(searchTerm)
     );
 
     setFilteredBooks(filtered);
+    setCurrentPage(1); // Reset to the first page when the search term changes
+  };
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
+
+  // Slice the books array to display only the current page
+  
+
+
+  // Handle pagination button click
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -68,6 +86,21 @@ function Home() {
       >
         {filteredBooks.map((book) => (
           <Book book={book} key={book.id} />
+        ))}
+      </div>
+
+      {/* Pagination buttons */}
+      <div style={{ textAlign: 'center', marginTop: 50,marginBottom:40 }}>
+        {Array.from({ length: totalPage }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`pagination-button ${
+              currentPage === index + 1 ? 'active' : ''
+            }`}
+          >
+            {index + 1}
+          </button>
         ))}
       </div>
     </div>

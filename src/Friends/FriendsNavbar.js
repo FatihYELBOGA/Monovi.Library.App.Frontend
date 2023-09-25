@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // If using React Router
 
 const sidebarStyle = {
-  width: '12%',
+  width: '100%',
   minWidth: '150px', // Adjust the sidebar width as needed
   borderRight: '1px solid #ccc',
   display: 'flex',
