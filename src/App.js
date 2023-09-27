@@ -20,13 +20,21 @@ import Friends from './Friends/Friends';
 import UserDetails from './Profile/UserDetails';
 import AddNewFriends from './Friends/AddNewFriends';
 import FriendRequests from './Friends/FriendRequests';
+import AdminNavbar from './Admin/Navbar/AdminNavbar';
+import AdminUsers from './Admin/Users/Users';
+import AdminBooks from './Admin/Books/AdminBooks';
+import AdminAuthors from './Admin/Authors/AdminAuthors';
+
+
 
 function App() {
   console.log(localStorage.getItem("userId"))
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [jwtToken, setJwtToken] = useState(localStorage.getItem("jwtToken"));
+  const [role,setRole] = useState("ADMIN");
+
   console.log(userId);
-  if (userId === null) {
+  if (userId === null && role ==="") {
     return (
       <BrowserRouter>
         <Routes>
@@ -36,7 +44,39 @@ function App() {
         <Footer />
       </BrowserRouter>
     )
-  } else {
+  } else if(role === "ADMIN"){
+
+    return(
+      <BrowserRouter>
+      <div id="container">
+
+        <div id="header">
+        <AdminNavbar userId={userId}/>
+        </div>
+
+        <div id="body-container">
+        <Routes>
+          <Route exact path='/admin-users' element={<AdminUsers  />} />
+          <Route exact path='/admin-books' element={<AdminBooks />}/>
+          <Route exact path='/admin-authors' element={<AdminAuthors />}/>
+        </Routes>
+
+        </div>
+
+        <div id="">
+        <Footer />
+        </div>
+        
+        </div>
+      
+        
+        
+        
+      </BrowserRouter>
+
+    )
+  }
+  else {
     return (
       <BrowserRouter>
       <div id="container">
@@ -47,12 +87,12 @@ function App() {
 
         <div id="body-container">
         <Routes>
-          <Route exact path='/home' element={<Home setUserId={setUserId} />} />
+          <Route exact path='/home' element={<Home setUserId={setUserId} role={role}/>} />
           <Route exact path='/book-details/:id' element={<BookDetails userId={userId} />} />
           <Route exact path='/profile' element={<Profile userId={userId} />} />
           <Route exact path='/contact' element={<Contact />} />
           <Route exact path='/about' element={<About />} />
-          <Route exact path='/authors' element={<Authors/>}/>
+          <Route exact path='/authors' element={<Authors role={role}/>}/>
           <Route exact path='/author-details/:authorId' element={<AuthorDetails/>}/>
           <Route exact path='/my-books' element={<MyBooks userId={userId}/>} />
           <Route exact path='/favorites-books' element={<FavoritesBooks userId={userId}/>}/>

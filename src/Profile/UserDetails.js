@@ -8,12 +8,7 @@ import {
   Grid,
   Card,
   CardMedia,
-  CardContent,
-  List,
   ListItem,
-  ListItemText,
-  Divider,
-  Avatar,
   Button,
 } from '@mui/material';
 import Photo from '../OtherComponents/Photo';
@@ -31,15 +26,21 @@ const UserDetails = (props) => {
   const [books, setBooks] = useState([]);
   const [avatarUrl,setAvatarURL] = useState("");
   const [isWaitingForFriend,setIsWaitingForFriend] = useState(false);
-
-  http://fatihyelbogaa-001-site1.htempurl.com/friends?user1=1&user2=2
+  const [isMe,setIsMe] = useState(userId === friendId);
+  const [friendshipId,setFriendshipId] = useState(0);
+  
 
   useEffect(() => 
   { 
     console.log(userId);
     fetch(" http://fatihyelbogaa-001-site1.htempurl.com/friends?user1="+friendId+"&user2="+userId).
-    then((res) =>
-      res.json()).
+    then((res) => {
+      if (res.status === 204) {
+        return Promise.resolve([]);
+      } else {
+        return res.json();
+      }
+    }).
     then((result) => {
       
       if(result ==="WAITING"){
@@ -57,8 +58,13 @@ const UserDetails = (props) => {
   { 
     console.log(userId);
     fetch(" http://fatihyelbogaa-001-site1.htempurl.com/friends?user1="+userId+"&user2="+friendId).
-    then((res) =>
-      res.json()).
+    then((res) => {
+      if (res.status === 204) {
+        return Promise.resolve([]);
+      } else {
+        return res.json();
+      }
+    }).
     then((result) => {
       
       setStatus(result);
@@ -73,8 +79,13 @@ const UserDetails = (props) => {
   { 
     console.log(userId);
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/users/"+friendId).
-    then((res) =>
-      res.json()).
+    then((res) => {
+      if (res.status === 204) {
+        return Promise.resolve([]);
+      } else {
+        return res.json();
+      }
+    }).
     then((result) => {
       
       setUser(result);
@@ -92,8 +103,13 @@ const UserDetails = (props) => {
   { 
     console.log(userId);
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/books/users/"+friendId).
-    then((res) =>
-      res.json()).
+    then((res) => {
+      if (res.status === 204) {
+        return Promise.resolve([]);
+      } else {
+        return res.json();
+      }
+    }).
     then((result) => {
       
       setBooks(result);
@@ -111,7 +127,13 @@ const UserDetails = (props) => {
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/friends?user1="+userId+"&user2="+friendId, {
       method: "POST",
     })
-    .then((res) => res.json()) 
+    .then((res) => {
+      if (res.status === 204) {
+        return Promise.resolve([]);
+      } else {
+        return res.json();
+      }
+    })
     .then((data) => {
       alert("Request was sent!");
       setStatus("WAITING");
@@ -123,11 +145,52 @@ const UserDetails = (props) => {
   }
 
   const handleRejectedFriend = ()=>{
+    const formData = new FormData();
+    formData.append("requestStatus","DENIED");
+    fetch(`http://fatihyelbogaa-001-site1.htempurl.com/friends/`+friendshipId,{
+      method:"PUT",
+      body: formData,
+    })
+      .then((res) => {
+        if (res.status === 204) {
+          return Promise.resolve([]);
+        } else {
+          return res.json();
+        }
+      })
+      .then(
+        (result) => {
+          alert("Rejected!")
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
+  };
 
-
-  }
 
   const handleAcceptFriend = () =>{
+    const formData = new FormData();
+    formData.append("requestStatus","APPROVED");
+    fetch(`http://fatihyelbogaa-001-site1.htempurl.com/friends/`+friendshipId,{
+      method:"PUT",
+      body: formData,
+    })
+      .then((res) => {
+        if (res.status === 204) {
+          return Promise.resolve([]);
+        } else {
+          return res.json();
+        }
+      })
+      .then(
+        (result) => {
+          alert("Rejected!")
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
 
   }
 
@@ -153,7 +216,7 @@ const UserDetails = (props) => {
               <Typography variant="h4" sx={{fontWeight:"bold"}} gutterBottom>
                 {user.firstName+" "+user.lastName.toUpperCase()}
               </Typography>
-              {(isWaitingForFriend) ? 
+              {(isMe) ? (<div></div>) : ((isWaitingForFriend) ? 
               (
                 <div className="button-container">
                   <Button className="accept-button"
@@ -180,7 +243,7 @@ const UserDetails = (props) => {
                   </div>
                 ))
 
-              )}
+              ))}
               
               </div>
               <div style={{marginTop:50}}>
@@ -188,7 +251,7 @@ const UserDetails = (props) => {
               <Typography style={{fontSize:"18px"}} variant="body1"><b>First Name:</b> {user.firstName}</Typography>
               <Typography style={{fontSize:"18px"}} variant="body1"><b>Last Name:</b> {user.lastName.toUpperCase()}</Typography>
               
-              <Typography style={{fontSize:"18px"}} variant="body1"><b>Born Date:</b> {user.bornDate.split("T")[0]}</Typography>
+              <Typography style={{fontSize:"18px"}} variant="body1"><b>Born Date:</b> {(user.bornDate !== null) ? (user.bornDate.split("T")[0]) :("kmfa")}</Typography>
                 </div>           
               
             </Grid>

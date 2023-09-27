@@ -33,7 +33,7 @@ const AddBook = (props) => {
   const [content,setContent] = useState("")
   const [contentUrl,setContentUrl] = useState("");
   const [writerId,setWriterId] = useState(0);
-  const {userId} = props;
+  const {userId,role} = props;
 
 
   //Enumaration lists
@@ -127,6 +127,7 @@ const AddBook = (props) => {
   };
 
   const handleAddBook = () => {
+
     const formData = new FormData();
     formData.append("Name", name);
     formData.append("Description", description);
@@ -162,7 +163,8 @@ const AddBook = (props) => {
 
   return (
     <div style={{ display: 'flex', paddingBottom: 0 }}>
-    <MiniNavbar />
+      {(role === "ADMIN") ? (<div></div>) : ( <MiniNavbar />)}
+   
     <div
           style={{
             display: 'flex',

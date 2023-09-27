@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Author from './Author';
 import './Authors.css';
 
-function Authors() {
+function Authors(props) {
+  const {role} = props;
   const [authors, setAuthors] = useState([]);
   const [filteredAuthors, setFilteredAuthors] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -10,6 +11,8 @@ function Authors() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage,setTotalPage] = useState(0);
   const itemsPerPage = 3; // Number of authors to display per page
+  const [authorRender,setAuthorRender] = useState(false);
+
 
   useEffect(() => {
     fetch(`http://fatihyelbogaa-001-site1.htempurl.com/writers/pagination?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
@@ -31,7 +34,7 @@ function Authors() {
           setIsLoaded(true);
         }
       );
-  }, [currentPage]); // Include currentPage in the dependency array to fetch data when the page changes
+  }, [currentPage,authorRender]); // Include currentPage in the dependency array to fetch data when the page changes
 
   // Handle input change in the search bar
   const handleSearchChange = (event) => {
@@ -78,7 +81,7 @@ function Authors() {
         }}
       >
         {filteredAuthors.map((author) => (
-          <Author author={author} key={author.id} />
+          <Author role={role} author={author} key={author.id} />
         ))}
       </div>
 

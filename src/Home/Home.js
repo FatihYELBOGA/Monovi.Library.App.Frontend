@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Book from '../Book/Book';
 
-function Home() {
+function Home(props) {
+  const {role} = props;
   const [books, setBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage,setTotalPage] = useState(0);
+  const [bookRender,setBookRender] = useState(false);
   const itemsPerPage = 3; // Number of books to display per page
 
   useEffect(() => {
@@ -31,7 +33,7 @@ function Home() {
           setIsLoaded(true);
         }
       );
-  }, [currentPage]); // Include currentPage in the dependency array to fetch data when the page changes
+  }, [currentPage,bookRender]); // Include currentPage in the dependency array to fetch data when the page changes
 
   // Handle input change in the search bar
   const handleSearchChange = (event) => {
@@ -85,7 +87,7 @@ function Home() {
         }}
       >
         {filteredBooks.map((book) => (
-          <Book book={book} key={book.id} />
+          <Book bookRender={bookRender} setBookRender={setBookRender} role={role} book={book} key={book.id} />
         ))}
       </div>
 
