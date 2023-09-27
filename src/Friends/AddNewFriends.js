@@ -5,9 +5,6 @@ import { Typography } from "@mui/material";
 import backgroundImage from "../image/desktop-wallpaper-best-friend-boy-and-girl-half-for-4-cave-wall-art-2-3-black-pinterest-boys-friends.jpg";
 
 function AddNewFriends(props) {
-  const { userId } = props;
-  const [friends, setFriends] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const aboutStyles = {
     header: {
@@ -25,26 +22,7 @@ function AddNewFriends(props) {
     },
   };
 
-  useEffect(() => {
-    fetch("http://fatihyelbogaa-001-site1.htempurl.com/friends/" + userId)
-      .then((res) => {
-        if (res.status === 204) {
-          // Handle 204 No Content response
-          return Promise.resolve(null);
-        } else {
-          return res.json();
-        }
-      })
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setFriends(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-        }
-      );
-  }, [userId]);
+  
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>

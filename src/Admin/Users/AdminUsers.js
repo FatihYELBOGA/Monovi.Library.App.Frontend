@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Author from './Author';
-import './Authors.css';
+import User from './User';
 
-function Authors(props) {
+
+function AdminUsers(props) {
   const {role} = props;
   const [authors, setAuthors] = useState([]);
   const [filteredAuthors, setFilteredAuthors] = useState([]);
@@ -81,7 +81,7 @@ function Authors(props) {
         }}
       >
         {filteredAuthors.map((author) => (
-          <Author setAuthorRender={setAuthorRender} authorRender={authorRender} role={role} author={author} key={author.id} />
+          <User role={role} author={author} key={author.id} />
         ))}
       </div>
 
@@ -103,4 +103,4 @@ function Authors(props) {
   );
 }
 
-export default Authors;
+export default AdminUsers;

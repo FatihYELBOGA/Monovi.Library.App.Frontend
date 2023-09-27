@@ -21,7 +21,7 @@ import UserDetails from './Profile/UserDetails';
 import AddNewFriends from './Friends/AddNewFriends';
 import FriendRequests from './Friends/FriendRequests';
 import AdminNavbar from './Admin/Navbar/AdminNavbar';
-import AdminUsers from './Admin/Users/Users';
+import AdminUsers from './Admin/Users/AdminUsers';
 import AdminBooks from './Admin/Books/AdminBooks';
 import AdminAuthors from './Admin/Authors/AdminAuthors';
 
@@ -31,7 +31,7 @@ function App() {
   console.log(localStorage.getItem("userId"))
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [jwtToken, setJwtToken] = useState(localStorage.getItem("jwtToken"));
-  const [role,setRole] = useState("ADMIN");
+  const [role,setRole] = useState("");
 
   console.log(userId);
   if (userId === null && role ==="") {
@@ -56,6 +56,7 @@ function App() {
 
         <div id="body-container">
         <Routes>
+        <Route exact path='/' element={<AdminUsers  />} />
           <Route exact path='/admin-users' element={<AdminUsers  />} />
           <Route exact path='/admin-books' element={<AdminBooks />}/>
           <Route exact path='/admin-authors' element={<AdminAuthors />}/>
@@ -100,7 +101,7 @@ function App() {
           <Route exact path='/friends' element={<Friends userId={userId}/>}/>
           <Route exact path='/user-details/:friendId' element={<UserDetails userId={userId}/>}/>
           <Route exact path='/add-new-friend' element={<AddNewFriends/>}/>
-          <Route exact path='/friend-requests' element={<FriendRequests/>}/>
+          <Route exact path='/friend-requests' element={<FriendRequests userId={userId}/>}/>
 
         
         </Routes>

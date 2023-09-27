@@ -9,32 +9,46 @@ function Friends (props){
     const {userId} = props;
     const [friends,setFriends] = useState([]);
     const [isLoaded,setIsLoaded] = useState(false);
-
-    useEffect(()=>{
-        fetch("http://fatihyelbogaa-001-site1.htempurl.com/friends/"+userId)
+    const [filteredFriends, setFilteredFriends] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage,setTotalPage] = useState(0);
+    const itemsPerPage = 3; // Number of authors to display per page
+   
+  
+  
+    useEffect(() => {
+      fetch(`http://fatihyelbogaa-001-site1.htempurl.com/friends/${userId}?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
         .then((res) => {
-            if (res.status === 204) {
-              // Handle 204 No Content response
-              return Promise.resolve(null);
-            } else {
-              return res.json();
-            }
-          })
+          if (res.status === 204) {
+            return Promise.resolve([]);
+          } else {
+            return res.json();
+          }
+        })
         .then(
-            (result) => {
-                setIsLoaded(true);
-                setFriends(result);
-            },
-            (error) => {
-                setIsLoaded(true);   
-            }
-        )
+          (result) => {
+            setIsLoaded(true);
+            setFriends(result.content);
+            setTotalPage(result.totalPages);
+            setFilteredFriends(result.content); // Initialize filteredAuthors with all authors
+          },
+          (error) => {
+            setIsLoaded(true);
+          }
+        );
+    }, [currentPage]);
 
-    },[userId])
+    
+
+    const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
+
 
 
     return(
         <div style={{ display: 'flex', paddingBottom: 0 }}>
+        
   <FriendsNavbar />
   <div
     style={{
@@ -47,12 +61,28 @@ function Friends (props){
       flex: '2', // Make this part of the layout grow to occupy available space
     }}
   >
-    <Friend></Friend>
+    {filteredFriends.map((friend) => (
+          <Friend friend={friend} key={friend.id} />
+        ))}
     
-   
+    
+    <div style={{ textAlign: 'center', marginTop: 20 }}>
+        {Array.from({ length: totalPage }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`pagination-button ${
+              currentPage === index + 1 ? 'active' : ''
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
   </div>
 </div>
     )
 
 }
 export default Friends;
+

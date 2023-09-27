@@ -301,7 +301,7 @@ const AddBook = (props) => {
                     onChange={(e) => setLanguage(e.target.value)}
                   >
                     {languages.map((language) =>(
-                        <MenuItem value={language}>{language}</MenuItem>
+                        <MenuItem key={language} value={language}>{language}</MenuItem>
                     ))}
                   
                   </Select>

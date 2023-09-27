@@ -21,13 +21,15 @@ const UserDetails = (props) => {
   const { friendId } = useParams(); // Assuming you have a userId parameter in your route
   const [user, setUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [userPhotoUrl, setUserPhotoUrl] = useState(null);
   const [status,setStatus] = useState("");
   const [books, setBooks] = useState([]);
   const [avatarUrl,setAvatarURL] = useState("");
   const [isWaitingForFriend,setIsWaitingForFriend] = useState(false);
   const [isMe,setIsMe] = useState(userId === friendId);
   const [friendshipId,setFriendshipId] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage,setTotalPage] = useState(0);
+  const itemsPerPage = 3; // Number of authors to display per page
   
 
   useEffect(() => 
@@ -60,14 +62,19 @@ const UserDetails = (props) => {
     fetch(" http://fatihyelbogaa-001-site1.htempurl.com/friends?user1="+userId+"&user2="+friendId).
     then((res) => {
       if (res.status === 204) {
-        return Promise.resolve([]);
+        setStatus("NONE");
+        return Promise.resolve("");
       } else {
         return res.json();
       }
     }).
     then((result) => {
+      if(result !== ""){
+        setStatus(result.status);
+      }
+       
+
       
-      setStatus(result);
     },
     (error) => {
       console.log(error);
@@ -98,27 +105,35 @@ const UserDetails = (props) => {
       console.log(error);
     });
   }, [friendId]);
-  
-  useEffect(() => 
-  { 
-    console.log(userId);
-    fetch("http://fatihyelbogaa-001-site1.htempurl.com/books/users/"+friendId).
-    then((res) => {
-      if (res.status === 204) {
-        return Promise.resolve([]);
-      } else {
-        return res.json();
-      }
-    }).
-    then((result) => {
-      
-      setBooks(result);
-      
-    },
-    (error) => {
-      console.log(error);
-    });
-  }, [userId]);
+
+  useEffect(() => {
+      fetch(`http://fatihyelbogaa-001-site1.htempurl.com/books/users/${userId}?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
+        .then((res) => {
+          if (res.status === 204) {
+            return Promise.resolve([]);
+          } else {
+            return res.json();
+          }
+        })
+        .then(
+          (result) => {
+            setIsLoaded(true);
+            setBooks(result.content);
+            setTotalPage(result.totalPages);
+            // Initialize filteredAuthors with all authors
+          },
+          (error) => {
+            setIsLoaded(true);
+          }
+        );
+    }, [currentPage]);
+
+    
+
+    const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
+
 
 
   const handleAddFriend = ()=>{
@@ -135,6 +150,7 @@ const UserDetails = (props) => {
       }
     })
     .then((data) => {
+      console.log(data);
       alert("Request was sent!");
       setStatus("WAITING");
     })
@@ -225,10 +241,10 @@ const UserDetails = (props) => {
                   onClick={handleRejectedFriend}>Reject</Button>
                 </div>
 
-              ) : ( (status !== "NONE") ? (<Button 
+              ) : ( (status === "NONE") ? (<Button 
               onClick={handleAddFriend}>
                 <PersonAddIcon></PersonAddIcon>
-                </Button>) : ((status !== "WAITING") ? (
+                </Button>) : ((status === "WAITING") ? (
                     <div className="waiting-container">
                       WAITING
                       </div>
@@ -272,6 +288,19 @@ const UserDetails = (props) => {
             </React.Fragment>
           ))}
         </div>
+        <div style={{ textAlign: 'center', marginTop: 20 }}>
+        {Array.from({ length: totalPage }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`pagination-button ${
+              currentPage === index + 1 ? 'active' : ''
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
       </Paper>
 
       </Container>

@@ -107,9 +107,13 @@ const Register = (props) => {
         .then((res) => res.json())
         .then((res) => {
           if(res.id !== null){
-              setUserId(0);
+              
               navigate("/");
               alert("Register completed !");
+              setFirstName("");
+              setEmail("");
+              setPassword("");
+              setPasswordAgain("");
           } else {
             console.log(res);
             alert("Register not completed !");

@@ -6,30 +6,39 @@ function MyBooks(props){
     const { userId} = props;
     const [books,setBooks] = useState([]);
     const [isLoaded,setIsLoaded] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage,setTotalPage] = useState(0);
+    const itemsPerPage = 3; // Number of authors to display per page
+   
+  
+  
+    useEffect(() => {
+      fetch(`http://fatihyelbogaa-001-site1.htempurl.com/books/users/${userId}?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
+        .then((res) => {
+          if (res.status === 204) {
+            return Promise.resolve([]);
+          } else {
+            return res.json();
+          }
+        })
+        .then(
+          (result) => {
+            setIsLoaded(true);
+            setBooks(result.content);
+            setTotalPage(result.totalPages);
+            // Initialize filteredAuthors with all authors
+          },
+          (error) => {
+            setIsLoaded(true);
+          }
+        );
+    }, [currentPage]);
 
-    useEffect(()=>{
-        
-            fetch("http://fatihyelbogaa-001-site1.htempurl.com/books/users/"+userId)
-            .then((res) => {
-                if (res.status === 204) {
-                  // Handle 204 No Content response
-                  return Promise.resolve(null);
-                } else {
-                  return res.json();
-                }
-              })
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    console.log(result)
-                    setBooks(result);
-                },
-                (error) => {
-                    setIsLoaded(true);   
-                }
-            )
+    
 
-    },[])
+    const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
 
     return(
         <div style={{ display: 'flex', paddingBottom: 0 }}>
@@ -48,6 +57,19 @@ function MyBooks(props){
     {books.map((book) => (
       <Book book={book} key={book.id} />
     ))}
+     <div style={{ textAlign: 'center', marginTop: 20 }}>
+        {Array.from({ length: totalPage }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`pagination-button ${
+              currentPage === index + 1 ? 'active' : ''
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
   </div>
 </div>
     )

@@ -101,7 +101,7 @@ const Login = (props) => {
       .then((res) => res.json())
       .then((res) => {
         if (res.id != null) {
-          console.log(res.id)
+          console.log(res)
           setUserId(res.id);
           setJwtToken(res.jwtToken);
           localStorage.setItem("jwtToken",res.jwtToken);

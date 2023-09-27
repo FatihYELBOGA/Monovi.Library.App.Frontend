@@ -35,13 +35,13 @@ const FriendsNavbar = () => {
   return (
     <div style={sidebarStyle}>
        <div style={{marginTop:"100%",display:"flex",flexDirection:"column"}}>
-      <Link to="/friends" style={linkStyle} activeClassName="active" activeStyle={activeLinkStyle}>
+      <Link to="/friends" style={linkStyle} >
         Friends
       </Link>
-      <Link to="/friend-requests" style={linkStyle} activeClassName="active" activeStyle={activeLinkStyle}>
+      <Link to="/friend-requests" style={linkStyle} >
         Requests
       </Link>
-      <Link to="/add-new-friend" style={linkStyle} activeClassName="active" activeStyle={activeLinkStyle}>
+      <Link to="/add-new-friend" style={linkStyle} >
         Add Friend
       </Link>
       </div>

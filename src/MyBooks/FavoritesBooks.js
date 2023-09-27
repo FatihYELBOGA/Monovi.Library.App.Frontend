@@ -6,31 +6,36 @@ function FavoritesBooks(props){
     const [books,setBooks] = useState([]);
     const [isLoaded,setIsLoaded] = useState(false);
     const {userId} = props;
-
-
-    useEffect(()=>{
-        
-            fetch("http://fatihyelbogaa-001-site1.htempurl.com/favorites/"+userId)
-            .then((res) => {
-                if (res.status === 204) {
-                  // Handle 204 No Content response
-                  return Promise.resolve(null);
-                } else {
-                  return res.json();
-                }
-              })
-            .then(
-                (result) => {
-                    setIsLoaded(true);
-                    console.log(result)
-                    setBooks(result);
-                },
-                (error) => {
-                    setIsLoaded(true);   
-                }
-            )
-    },[userId])
-    console.log(books)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage,setTotalPage] = useState(0);
+    const itemsPerPage = 3; // Number of authors to display per page
+   
+  
+  
+    useEffect(() => {
+      fetch(`http://fatihyelbogaa-001-site1.htempurl.com/favorites/${userId}?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
+        .then((res) => {
+          if (res.status === 204) {
+            return Promise.resolve([]);
+          } else {
+            return res.json();
+          }
+        })
+        .then(
+          (result) => {
+            setIsLoaded(true);
+            setBooks(result.content);
+            setTotalPage(result.totalPages);
+            // Initialize filteredAuthors with all authors
+          },
+          (error) => {
+            setIsLoaded(true);
+          }
+        );
+    }, [currentPage]);
+    const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
 
     return(
 
@@ -52,6 +57,19 @@ function FavoritesBooks(props){
             )
 
             )}
+            <div style={{ textAlign: 'center', marginTop: 20 }}>
+        {Array.from({ length: totalPage }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={`pagination-button ${
+              currentPage === index + 1 ? 'active' : ''
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
             
             
         </div>

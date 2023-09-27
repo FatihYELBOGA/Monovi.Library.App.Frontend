@@ -70,6 +70,7 @@ const UserSearch = () => {
           <List>        
           {searchResults.map((user) => (
             <Link
+            key={user.id}
             component="a"
             href={`/user-details/${user.id}`} // Replace with your desired link URL
             underline="none"
@@ -80,7 +81,10 @@ const UserSearch = () => {
               style={{ backgroundColor: 'white' }} // Add background color
             >
               <ListItemAvatar>
-                <Avatar src={user.avatarUrl} alt={user.name} />
+                {(user.profil === null) ? 
+                ( <Avatar  alt={user.name} />) : 
+                ( <Avatar src={Photo(user.profil.content,user.profil.name)} alt={user.name} />)}
+               
               </ListItemAvatar>
               <ListItemText
                 primary={
