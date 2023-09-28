@@ -4,11 +4,12 @@ import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import Photo from '../OtherComponents/Photo';
 export default function Friend(props) {
-  const { user } = props;
-
+  const { friend } = props;
+  console.log(friend);
   return (
-    <Link to={``} style={{ textDecoration: 'none',height:"auto" }}>
+    <Link to={`/user-details/${friend.id}`} style={{ textDecoration: 'none',height:"auto" }}>
     <Card
   sx={{
     borderRadius: 2,
@@ -29,11 +30,11 @@ export default function Friend(props) {
   <CardContent sx={{ display:"flex" }}>
     {/* Card content goes here */}
  
-    <Avatar sx={{ width: 50, height: 50}}  />
+    <Avatar src={Photo(friend.profil.content,friend.profil.name)} sx={{ width: 50, height: 50}}  />
  
   <div style={{display:"flex",justifyContent:"center",marginLeft:"15px",marginTop:"10px"}}>
   <Typography color="black"  gutterBottom variant="h7" component="div">
-      Fydor Dostoyevski
+      {friend.firstName+ " "+friend.lastName}
     </Typography>
   </div>
   

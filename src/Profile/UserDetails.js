@@ -44,10 +44,12 @@ const UserDetails = (props) => {
       }
     }).
     then((result) => {
-      
-      if(result ==="WAITING"){
+      console.log(result)
+      if(result.status ==="WAITING"){
         setIsWaitingForFriend(true);
+        
       }
+      setFriendshipId(result.id)
     },
     (error) => {
       console.log(error);
@@ -71,6 +73,7 @@ const UserDetails = (props) => {
     then((result) => {
       if(result !== ""){
         setStatus(result.status);
+        setFriendshipId(result.id);
       }
        
 
@@ -176,7 +179,10 @@ const UserDetails = (props) => {
       })
       .then(
         (result) => {
-          alert("Rejected!")
+          console.log(result);
+          alert("Rejected!");
+          setIsWaitingForFriend(false);
+          setStatus("DENIED");
         },
         (error) => {
           console.log(error)
@@ -201,7 +207,10 @@ const UserDetails = (props) => {
       })
       .then(
         (result) => {
-          alert("Rejected!")
+          console.log(result);
+          alert("Acccepted!")
+          setIsWaitingForFriend(false);
+          setStatus("APPROVED");
         },
         (error) => {
           console.log(error)
@@ -235,13 +244,13 @@ const UserDetails = (props) => {
               {(isMe) ? (<div></div>) : ((isWaitingForFriend) ? 
               (
                 <div className="button-container">
-                  <Button className="accept-button"
-                  onClick={handleAcceptFriend}>Accept</Button>
-                  <Button className="reject-button"
-                  onClick={handleRejectedFriend}>Reject</Button>
+                  <button className="accept-button"
+                  onClick={handleAcceptFriend}>Accept</button>
+                  <button className="reject-button"
+                  onClick={handleRejectedFriend}>Reject</button>
                 </div>
 
-              ) : ( (status === "NONE") ? (<Button 
+              ) : ( (status === "NONE" || status === "DENIED") ? (<Button 
               onClick={handleAddFriend}>
                 <PersonAddIcon></PersonAddIcon>
                 </Button>) : ((status === "WAITING") ? (
@@ -251,11 +260,11 @@ const UserDetails = (props) => {
                 ) : (
                   <div className="friend-button-container">
                     
-                    <Button className="withdraw-button"
+                    <button className="withdraw-button"
                     onClick={handleRejectedFriend}
                     >
                       Withdraw
-                    </Button>
+                    </button>
                   </div>
                 ))
 

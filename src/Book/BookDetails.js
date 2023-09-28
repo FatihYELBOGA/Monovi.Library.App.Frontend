@@ -16,7 +16,7 @@ import Photo from '../OtherComponents/Photo';
 import FileContent from '../OtherComponents/FileContent';
 import CommentProfile from '../Profile/CommentProfile';
 import EditCommentProfile from '../Profile/EditCommentProfile';
-import {  Rating } from '@mui/material';
+import {  Avatar, Button, Rating } from '@mui/material';
 
 
 const ExpandMore = styled((props) => {
@@ -48,7 +48,31 @@ export default function BookDetails(props) {
   const [totalPage,setTotalPage] = useState(0);
   const itemsPerPage = 5; // Number of authors to display per page
   const [commentNumber,setCommentNumber] = useState(0);
+  const [friends,setFriends] = useState([]);
+  const [isSharing, setIsSharing] = useState(false);
   
+  const toggleShareOptions = () => {
+    setIsSharing(!isSharing);
+  };
+
+  useEffect(() => {
+    fetch(`http://fatihyelbogaa-001-site1.htempurl.com/friends/${userId}?pageNo=${1}&pageSize=${10}`)
+      .then((res) => {
+        if (res.status === 204) {
+          return Promise.resolve([]);
+        } else {
+          return res.json();
+        }
+      })
+      .then(
+        (result) => {
+         
+          setFriends(result.content);
+        },
+        (error) => {
+        }
+      );
+  }, []);
 
   useEffect(()=>{
     fetch("http://fatihyelbogaa-001-site1.htempurl.com/books/"+id)
@@ -315,6 +339,39 @@ export default function BookDetails(props) {
 
     }
   }
+  const handleShareBook = (id) =>{
+    const formData = new FormData();
+      formData.append("SenderUserId",userId);
+      formData.append("ReceiverUserId",id);
+      formData.append("BookId",book.id);
+      fetch("http://fatihyelbogaa-001-site1.htempurl.com/book-sharing", {
+      method: 'POST',
+      body: formData,
+      headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwtToken")}`, // Include the token in the "Authorization" header.
+        // You may need to add other headers based on the API requirements.
+      }
+    })
+    .then((res) => {
+        if (res.status === 204) {
+          // Handle 204 No Content response
+          return Promise.resolve(null);
+        } else {
+          return res.json();
+        }
+      })
+    .then(
+        (result) => {
+            if(result !== null){
+              alert("success")
+            }
+        },
+        (error) => {
+             console.log(error);
+        }
+    )
+
+  }
 
   if(!isLoaded){
     return(<div></div>)
@@ -411,9 +468,40 @@ export default function BookDetails(props) {
           <FavoriteIcon 
           sx={{color: isFav ? "red" : "grey"}} />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <IconButton 
+            aria-label="share" 
+            onClick={toggleShareOptions} // Toggle share options visibility
+          >
+            <ShareIcon />
+          </IconButton>
+        {isSharing && (
+          <div>
+            <Typography variant="body2" gutterBottom>
+              Select friends to share with:
+            </Typography>
+            <div style={{display:"flex",flexDirection:"column"}}>
+              {friends.map((friend) => (
+                <Button
+                  key={friend.id}
+                  onClick={() => {
+                    handleShareBook(friend.id);
+                    toggleShareOptions(); // Close the share options
+                  }}
+                >
+                  <Avatar sx={{marginRight:2}} src={Photo(friend.profil.content,friend.profil.name)}>
+
+                  </Avatar>
+                  <Typography>
+                  {friend.firstName+" "+friend.lastName}
+                  </Typography>
+                   {/* Display friend's name */}
+                </Button>
+              ))}
+              
+            </div>
+          </div>
+        )}
+
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
