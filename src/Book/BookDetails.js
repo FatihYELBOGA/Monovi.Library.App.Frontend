@@ -241,7 +241,7 @@ export default function BookDetails(props) {
       const formData = new FormData();
       formData.append("BookId",book.id);
       formData.append("UserId",userId);
-      formData.append("Point",rating);
+      formData.append("Point",newValue);
       fetch("http://fatihyelbogaa-001-site1.htempurl.com/ratings", {
       method: 'POST',
       body: formData,
