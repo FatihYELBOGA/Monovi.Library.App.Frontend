@@ -29,8 +29,12 @@ export default function Friend(props) {
   
   <CardContent sx={{ display:"flex" }}>
     {/* Card content goes here */}
- 
+  {(friend.profil === null) ? (
+    <Avatar sx={{ width: 50, height: 50}}  />
+  ) : (
     <Avatar src={Photo(friend.profil.content,friend.profil.name)} sx={{ width: 50, height: 50}}  />
+  )}
+    
  
   <div style={{display:"flex",justifyContent:"center",marginLeft:"15px",marginTop:"10px"}}>
   <Typography color="black"  gutterBottom variant="h7" component="div">

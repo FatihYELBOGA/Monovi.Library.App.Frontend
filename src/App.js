@@ -24,6 +24,7 @@ import AdminNavbar from './Admin/Navbar/AdminNavbar';
 import AdminUsers from './Admin/Users/AdminUsers';
 import AdminBooks from './Admin/Books/AdminBooks';
 import AdminAuthors from './Admin/Authors/AdminAuthors';
+import SharingBooks from './MyBooks/SharingBooks';
 
 
 
@@ -102,7 +103,7 @@ function App() {
           <Route exact path='/user-details/:friendId' element={<UserDetails userId={userId}/>}/>
           <Route exact path='/add-new-friend' element={<AddNewFriends/>}/>
           <Route exact path='/friend-requests' element={<FriendRequests userId={userId}/>}/>
-
+          <Route exact path='/sharing-books' element={<SharingBooks userId={userId}/>}/>
         
         </Routes>
 

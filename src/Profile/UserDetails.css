@@ -19,8 +19,8 @@
   
   /* Accept Button */
   .accept-button {
-    background-color: #4CAF50 !important; /* Green color for "Accept" */
-    color: white !important;
+    background-color: #4CAF50; /* Green color for "Accept" */
+    color: white;
     padding: 6px 12px; /* Adjust button size */
     border-radius: 5px; /* Rounded corners */
     font-size: 14px;

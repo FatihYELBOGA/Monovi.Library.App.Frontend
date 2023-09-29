@@ -475,11 +475,9 @@ export default function BookDetails(props) {
             <ShareIcon />
           </IconButton>
         {isSharing && (
-          <div>
-            <Typography variant="body2" gutterBottom>
-              Select friends to share with:
-            </Typography>
-            <div style={{display:"flex",flexDirection:"column"}}>
+          <div style={{border:"1px solid grey",borderRadius:"12px"}}>
+            
+            <div style={{ display: "flex", flexDirection: "column" }}>
               {friends.map((friend) => (
                 <Button
                   key={friend.id}
@@ -487,28 +485,33 @@ export default function BookDetails(props) {
                     handleShareBook(friend.id);
                     toggleShareOptions(); // Close the share options
                   }}
+                  sx={{borderBottom:1, backgroundColor:"#E9E9E9",borderRadius:"12px"}}
                 >
-                  <Avatar sx={{marginRight:2}} src={Photo(friend.profil.content,friend.profil.name)}>
-
-                  </Avatar>
-                  <Typography>
-                  {friend.firstName+" "+friend.lastName}
-                  </Typography>
-                   {/* Display friend's name */}
+                  {friend.profil !== null ? (
+                    <>
+                      <Avatar sx={{ marginRight: 2 }} src={Photo(friend.profil.content, friend.profil.name)} />
+                      <Typography>{friend.firstName + " " + friend.lastName}</Typography>
+                    </>
+                  ) : (
+                    <>
+                      <Avatar sx={{ marginRight: 2 }} />
+                      <Typography>{friend.firstName + " " + friend.lastName}</Typography>
+                    </>
+                  )}
                 </Button>
               ))}
-              
             </div>
+
           </div>
         )}
-
+        <span style={{fontSize:"14px",marginLeft:"74%"}}>COMMENTS ({commentNumber})</span>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <span style={{fontSize:"14px"}}>Comments({commentNumber})</span><ExpandMoreIcon />
+          <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

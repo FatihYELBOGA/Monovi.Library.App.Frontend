@@ -39,41 +39,44 @@ function FavoritesBooks(props){
 
     return(
 
-        <div style={{ display: 'flex', paddingBottom: 0 }}>
-        <MiniNavbar />
+      <div style={{ display: 'flex' }}>
+      <MiniNavbar />
+      <div
+        style={{
+          flex: '2', // Take up remaining space
+          padding: '20px', // Add some spacing
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'center',
             alignItems: 'baseline',
-            paddingTop: 150,
-            marginLeft: '0%',
-            flex: '2', // Make this part of the layout grow to occupy available space
           }}
         >
-            {books.map((book) =>(
-                    <Book book={book.book}></Book>
-            )
-
-            )}
-            <div style={{ textAlign: 'center', marginTop: 20 }}>
-        {Array.from({ length: totalPage }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            className={`pagination-button ${
-              currentPage === index + 1 ? 'active' : ''
-            }`}
-          >
-            {index + 1}
-          </button>
-        ))}
+          {books.map((book) => (
+            <Book book={book.book} key={book.id} />
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', marginTop: 20 }}>
+          {Array.from({ length: totalPage }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              className={`pagination-button ${
+                currentPage === index + 1 ? 'active' : ''
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
-            
-            
-        </div>
-        </div>
+    </div>
     )
 
 }

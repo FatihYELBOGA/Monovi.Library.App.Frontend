@@ -110,7 +110,7 @@ const UserDetails = (props) => {
   }, [friendId]);
 
   useEffect(() => {
-      fetch(`http://fatihyelbogaa-001-site1.htempurl.com/books/users/${userId}?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
+      fetch(`http://fatihyelbogaa-001-site1.htempurl.com/books/users/${friendId}?pageNo=${currentPage}&pageSize=${itemsPerPage}`)
         .then((res) => {
           if (res.status === 204) {
             return Promise.resolve([]);
